@@ -86,7 +86,7 @@ const ContactForm = ({ className = "" }: ContactFormProps) => {
                 placeholder="Your first name"
                 id="firstName"
                 className={cn(
-                  "mt-1.5 h-11 bg-white/5 backdrop-blur-sm border-white/10 focus:border-primary/50 shadow-none",
+                  "mt-1.5 h-11 bg-white/5  backdrop-blur-sm border-gray-400 focus:border-primary/50 shadow-none",
                   errors.firstName ? "border-destructive" : ""
                 )}
               />
@@ -111,7 +111,7 @@ const ContactForm = ({ className = "" }: ContactFormProps) => {
                 placeholder="Your last name"
                 id="lastName"
                 className={cn(
-                  "mt-1.5 h-11 bg-white/5 backdrop-blur-sm border-white/10 focus:border-primary/50 shadow-none",
+                  "mt-1.5 h-11 bg-white/5  backdrop-blur-sm border-gray-400 focus:border-primary/50 shadow-none",
                   errors.lastName ? "border-destructive" : ""
                 )}
               />
@@ -137,7 +137,7 @@ const ContactForm = ({ className = "" }: ContactFormProps) => {
                 placeholder="your.email@example.com"
                 id="email"
                 className={cn(
-                  "mt-1.5 h-11 bg-white/5 backdrop-blur-sm border-white/10 focus:border-primary/50 shadow-none",
+                  "mt-1.5 h-11 bg-white/5  backdrop-blur-sm border-gray-400 focus:border-primary/50 shadow-none",
                   errors.email ? "border-destructive" : ""
                 )}
               />
@@ -162,7 +162,7 @@ const ContactForm = ({ className = "" }: ContactFormProps) => {
                 id="message"
                 placeholder="Tell us about your trekking plans, questions, or special requirements..."
                 className={cn(
-                  "mt-1.5 bg-white/5 backdrop-blur-sm border-white/10 focus:border-primary/50 shadow-none min-h-[150px]",
+                  "mt-1.5 bg-white/5  backdrop-blur-sm border-gray-400 focus:border-primary/50 shadow-none min-h-[150px]",
                   errors.message ? "border-destructive" : ""
                 )}
                 rows={6}
@@ -178,7 +178,7 @@ const ContactForm = ({ className = "" }: ContactFormProps) => {
                 id="acceptTerms"
                 {...register("acceptTerms")}
                 className={cn(
-                  "border-white/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary",
+                  "border-gray-400 data-[state=checked]:bg-primary data-[state=checked]:border-primary",
                   errors.acceptTerms ? "border-destructive" : ""
                 )}
               />

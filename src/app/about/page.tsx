@@ -14,28 +14,34 @@ import {
   QuoteIcon,
   CheckCircleIcon,
   GlobeIcon,
+  CameraIcon,
 } from "lucide-react";
+import { getFeaturedPhotoGalleries } from "@/lib/sanity/queries/trekHighlightQueries";
+import TrekHighlightCard from "@/components/trek-highlights/TrekHighlightCard";
 
 export const metadata: Metadata = {
-  title: "About Me | Manaslu Trekking Guide",
+  title: "About Me | Samrat Adhikari - Manaslu Trekking Guide",
   description:
-    "Learn about my journey as a professional trekking guide in the Manaslu region of Nepal, my experience, philosophy, and passion for the mountains.",
+    "Learn about Samrat Adhikari's journey as a professional trekking guide in the Manaslu region of Nepal, his experience, philosophy, and passion for the mountains.",
   openGraph: {
-    title: "About Me | Manaslu Trekking Guide",
+    title: "About Me | Samrat Adhikari - Manaslu Trekking Guide",
     description:
-      "Learn about my journey as a professional trekking guide in the Manaslu region of Nepal, my experience, philosophy, and passion for the mountains.",
+      "Learn about Samrat Adhikari's journey as a professional trekking guide in the Manaslu region of Nepal, his experience, philosophy, and passion for the mountains.",
     images: [
       {
         url: "/images/WhatsApp Image 2025-02-28 at 11.57.59.jpeg",
         width: 1200,
         height: 630,
-        alt: "Manaslu Trekking Guide - About Me",
+        alt: "Samrat Adhikari - Manaslu Trekking Guide",
       },
     ],
   },
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  // Fetch featured photo galleries from Sanity
+  const featuredGalleries = await getFeaturedPhotoGalleries(3);
+
   return (
     <main className="relative">
       {/* Hero Section */}
@@ -59,7 +65,7 @@ export default function AboutPage() {
             <span>Professional Trek Guide</span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-            Namaste, I&apos;m Tenzin Sherpa
+            Namaste, I&apos;m Samrat Adhikari
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-8">
             Your guide to the majestic Manaslu Circuit and beyond
@@ -74,7 +80,7 @@ export default function AboutPage() {
               asChild
               size="lg"
               variant="outline"
-              className="rounded-full"
+              className="rounded-full bg-black/30"
             >
               <Link href="/contact">Contact Me</Link>
             </Button>
@@ -96,7 +102,7 @@ export default function AboutPage() {
               <div className="relative z-10 rounded-2xl overflow-hidden shadow-xl">
                 <Image
                   src="/images/WhatsApp Image 2025-02-28 at 11.57.58.jpeg"
-                  alt="Tenzin Sherpa - Manaslu Trek Guide"
+                  alt="Samrat Adhikari - Manaslu Trek Guide"
                   width={600}
                   height={800}
                   className="w-full h-auto object-cover"
@@ -112,33 +118,35 @@ export default function AboutPage() {
                 <span>My Journey</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                From Village Boy to Mountain Guide
+                From Himalayan Roots to Expert Guide
               </h2>
               <div className="space-y-4 text-gray-700 dark:text-gray-300">
                 <p>
-                  Born in a small village nestled in the foothills of the
-                  Himalayas, I grew up with the mountains as my playground. As a
-                  child, I would watch trekkers pass through our village,
-                  fascinated by their stories and adventures.
+                  Born and raised in the beautiful Himalayan region of Nepal, I
+                  developed a deep connection with the mountains from an early
+                  age. The majestic peaks, serene valleys, and rich cultural
+                  tapestry of my homeland have shaped my identity and passion.
                 </p>
                 <p>
-                  At the age of 16, I began working as a porter, carrying
-                  supplies for trekking groups. This humble beginning taught me
-                  the value of hard work and perseverance. Over the years, I
-                  worked my way up, learning English, studying the mountain
-                  ecosystems, and mastering the art of guiding.
+                  My journey as a trekking guide began over 10 years ago when I
+                  decided to transform my love for the mountains into a
+                  profession. Starting with local treks, I gradually expanded my
+                  expertise to the challenging and breathtaking Manaslu Circuit,
+                  which has become my specialization.
                 </p>
                 <p>
-                  After completing my formal training and certification as a
-                  trekking guide, I specialized in the Manaslu Circuit, drawn to
-                  its pristine beauty and cultural richness. For the past 12
-                  years, I&apos;ve had the privilege of sharing this magnificent
-                  region with adventurers from around the world.
+                  Throughout my career, I've dedicated myself to continuous
+                  learning - studying the region's ecology, history, and
+                  cultural heritage while perfecting my skills in navigation,
+                  safety protocols, and emergency response. I'm certified by the
+                  Nepal Academy of Tourism and Hotel Management (NATHM) and hold
+                  advanced wilderness first aid certification.
                 </p>
                 <p className="font-medium text-foreground">
-                  Today, I&apos;m proud to be one of the most experienced guides
-                  in the Manaslu region, with over 150 successful treks and
-                  countless friendships formed along the way.
+                  Today, I take pride in being one of the most knowledgeable
+                  guides for the Manaslu Circuit, having successfully led over
+                  120 treks and created lasting memories with trekkers from
+                  around the world.
                 </p>
               </div>
 
@@ -149,7 +157,7 @@ export default function AboutPage() {
                       <CalendarIcon className="h-5 w-5" />
                     </div>
                     <div>
-                      <h3 className="font-semibold">12+ Years</h3>
+                      <h3 className="font-semibold">10+ Years</h3>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         Professional Experience
                       </p>
@@ -162,7 +170,7 @@ export default function AboutPage() {
                       <UsersIcon className="h-5 w-5" />
                     </div>
                     <div>
-                      <h3 className="font-semibold">150+</h3>
+                      <h3 className="font-semibold">120+</h3>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         Guided Treks
                       </p>
@@ -191,13 +199,14 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto text-center text-white">
             <QuoteIcon className="h-16 w-16 mx-auto text-primary/80 mb-6" />
             <blockquote className="text-2xl md:text-3xl font-medium italic mb-8">
-              &quot;The mountains are not just my workplace; they are my home,
-              my teacher, and my sanctuary. Every trek is a new story waiting to
-              be written, every client a new friend to be made.&quot;
+              &quot;The Himalayas aren't just mountains; they're living entities
+              that teach us humility, perseverance, and the true meaning of
+              beauty. My greatest joy is sharing these lessons with trekkers and
+              watching them transform through their journey.&quot;
             </blockquote>
             <div className="flex items-center justify-center">
               <div className="h-px w-12 bg-primary/50 mr-4" />
-              <p className="text-lg font-medium">Tenzin Sherpa</p>
+              <p className="text-lg font-medium">Samrat Adhikari</p>
               <div className="h-px w-12 bg-primary/50 ml-4" />
             </div>
           </div>
@@ -216,8 +225,8 @@ export default function AboutPage() {
               What I Bring to Your Trek
             </h2>
             <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-              More than just guiding you along the trail, I&apos;m committed to
-              creating an immersive and transformative experience in the
+              More than just guiding you along the trail, I'm committed to
+              creating a safe, educational, and transformative experience in the
               Himalayas.
             </p>
           </div>
@@ -229,10 +238,10 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-bold mb-4">Local Knowledge</h3>
               <p className="text-gray-700 dark:text-gray-300">
-                Born and raised in the region, I offer insights into hidden
-                gems, local customs, and authentic experiences that most
-                tourists miss. My connections with local communities ensure you
-                experience the true heart of Nepal.
+                With deep roots in Nepal, I offer insights into hidden gems,
+                local customs, and authentic experiences that most tourists
+                miss. My connections with local communities ensure you
+                experience the true heart of the Manaslu region.
               </p>
             </div>
 
@@ -242,10 +251,10 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-bold mb-4">Cultural Immersion</h3>
               <p className="text-gray-700 dark:text-gray-300">
-                I speak multiple local dialects and have deep knowledge of the
-                diverse cultures along the Manaslu Circuit. Through stories,
-                traditions, and interactions with locals, I help you connect
-                with the soul of the Himalayas.
+                Fluent in multiple languages including English, Nepali, and
+                local dialects, I help bridge cultural gaps and facilitate
+                meaningful interactions. Through stories, traditions, and local
+                connections, I help you connect with the soul of the Himalayas.
               </p>
             </div>
 
@@ -270,11 +279,11 @@ export default function AboutPage() {
         <div className="container mx-auto px-6 relative">
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center px-4 py-1.5 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">
-              <MountainIcon className="h-4 w-4 mr-1.5" />
+              <CameraIcon className="h-4 w-4 mr-1.5" />
               <span>Trek Moments</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Glimpses from the Trail
+              Glimpses from the <span className="text-primary">Trail</span>
             </h2>
             <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
               Each photograph tells a story of adventure, connection, and the
@@ -282,49 +291,58 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
-              <Image
-                src="/images/WhatsApp Image 2025-02-28 at 11.57.59 (1).jpeg"
-                alt="Manaslu Trek Landscape"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <p className="text-white font-medium">
-                  Sunrise at Larkya La Pass (5,160m)
-                </p>
-              </div>
+          {featuredGalleries.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredGalleries.map((gallery) => (
+                <TrekHighlightCard key={gallery._id} highlight={gallery} />
+              ))}
             </div>
+          ) : (
+            // Fallback content if no galleries are available from Sanity
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
+                <Image
+                  src="/images/WhatsApp Image 2025-02-28 at 11.57.59 (1).jpeg"
+                  alt="Manaslu Trek Landscape"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <p className="text-white font-medium">
+                    Sunrise at Larkya La Pass (5,160m)
+                  </p>
+                </div>
+              </div>
 
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
-              <Image
-                src="/images/WhatsApp Image 2025-02-28 at 11.57.59 (2).jpeg"
-                alt="Local Village Life"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <p className="text-white font-medium">
-                  Traditional Tibetan village of Samagaon
-                </p>
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
+                <Image
+                  src="/images/WhatsApp Image 2025-02-28 at 11.57.59 (2).jpeg"
+                  alt="Local Village Life"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <p className="text-white font-medium">
+                    Traditional Tibetan village of Samagaon
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
-              <Image
-                src="/images/WhatsApp Image 2025-02-28 at 11.57.57 (1).jpeg"
-                alt="Trekking Group"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <p className="text-white font-medium">
-                  Guiding trekkers through rhododendron forests
-                </p>
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
+                <Image
+                  src="/images/WhatsApp Image 2025-02-28 at 11.57.57 (1).jpeg"
+                  alt="Trekking Group"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <p className="text-white font-medium">
+                    Guiding trekkers through rhododendron forests
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           <div className="text-center mt-10">
             <Button
@@ -333,7 +351,7 @@ export default function AboutPage() {
               size="lg"
               className="rounded-full"
             >
-              <Link href="/gallery">
+              <Link href="/media">
                 View Full Gallery <ArrowRightIcon className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -368,26 +386,26 @@ export default function AboutPage() {
                 <div className="h-16 w-16 rounded-full bg-gray-200 overflow-hidden">
                   <Image
                     src="/images/WhatsApp Image 2025-02-28 at 11.57.58 (1).jpeg"
-                    alt="Sarah Johnson"
+                    alt="Emily Thompson"
                     width={64}
                     height={64}
                     className="object-cover w-full h-full"
                   />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">Sarah Johnson</h3>
+                  <h3 className="font-bold text-lg">Emily Thompson</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    United States, October 2022
+                    United Kingdom, November 2023
                   </p>
                 </div>
               </div>
               <p className="text-gray-700 dark:text-gray-300 italic">
-                &quot;Tenzin wasn&apos;t just a guide; he was a storyteller, a
-                friend, and a guardian. His knowledge of the mountains is
-                unparalleled, and his passion for sharing his culture made our
-                trek truly special. The way he handled our group&apos;s varying
-                fitness levels with patience and encouragement was remarkable.
-                &quot;
+                &quot;Samrat was exceptional from start to finish. His knowledge
+                of the Manaslu region is impressive, but what truly sets him
+                apart is his genuine care for both the trekkers and the
+                environment. He adapted the pace perfectly for our group and
+                shared fascinating insights about local culture that made the
+                trek so much more meaningful.&quot;
               </p>
               <div className="flex mt-4">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -405,26 +423,26 @@ export default function AboutPage() {
                 <div className="h-16 w-16 rounded-full bg-gray-200 overflow-hidden">
                   <Image
                     src="/images/WhatsApp Image 2025-02-28 at 11.57.58 (1).jpeg"
-                    alt="Michael Chen"
+                    alt="David Müller"
                     width={64}
                     height={64}
                     className="object-cover w-full h-full"
                   />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">Michael Chen</h3>
+                  <h3 className="font-bold text-lg">David Müller</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Canada, April 2023
+                    Germany, May 2023
                   </p>
                 </div>
               </div>
               <p className="text-gray-700 dark:text-gray-300 italic">
-                &quot;As a photographer, I was looking for unique perspectives
-                and authentic moments. Tenzin seemed to intuitively understand
-                this, leading me to perfect spots for sunrise shots and
-                arranging meetings with local families. His attention to detail
-                and genuine care for both his clients and his homeland shine
-                through in everything he does.&quot;
+                &quot;As an experienced trekker, I've had many guides, but
+                Samrat stands out for his professionalism and attention to
+                detail. His safety protocols were impeccable, especially during
+                our crossing of Larkya La Pass. Beyond technical skills, his
+                warm personality and cultural insights transformed a challenging
+                trek into an unforgettable journey of discovery.&quot;
               </p>
               <div className="flex mt-4">
                 {[1, 2, 3, 4, 5].map((star) => (

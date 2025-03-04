@@ -38,6 +38,11 @@ export const NavMenu = ({ scrolled, ...props }: NavMenuProps) => (
       </NavigationMenuItem>
       <NavigationMenuItem>
         <NavigationMenuLink asChild>
+          <Link href="/media">Media</Link>
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+      <NavigationMenuItem>
+        <NavigationMenuLink asChild>
           <Link href="/blog">Blog</Link>
         </NavigationMenuLink>
       </NavigationMenuItem>

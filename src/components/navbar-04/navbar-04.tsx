@@ -5,6 +5,8 @@ import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { PhoneIcon } from "lucide-react";
 
 const Navbar04Page = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -26,24 +28,45 @@ const Navbar04Page = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 h-16 transition-all duration-300 ${
-        scrolled ? "bg-background shadow-md" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 h-20 transition-all duration-300 ${
+        scrolled
+          ? "bg-background/95 backdrop-blur-md shadow-md"
+          : "bg-transparent"
       }`}
     >
       <div className="h-full flex items-center justify-between mx-auto px-4 max-w-screen-xl">
-        <Link href="/">
-          <Logo scrolled={scrolled} />
-        </Link>
+        {/* Left section - Desktop Menu */}
+        <div className="hidden md:flex items-center">
+          <NavMenu scrolled={scrolled} />
+        </div>
 
-        {/* Desktop Menu */}
-        <NavMenu className="hidden md:block" scrolled={scrolled} />
+        {/* Center section - Logo */}
+        <div className="flex items-center justify-center flex-grow md:flex-grow-0">
+          <Link href="/" className="mx-auto md:mx-0">
+            <Logo scrolled={scrolled} />
+          </Link>
+        </div>
 
-        <div className="hidden items-center gap-3  md:flex">
+        {/* Right section - Call to action */}
+        <div className="hidden md:flex items-center gap-4">
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className={`rounded-full ${
+              scrolled
+                ? "border-primary text-primary hover:bg-primary/10 hover:text-primary"
+                : "border-white text-white bg-black/30 hover:bg-black/50 hover:text-white"
+            }`}
+          >
+            <Link href="#contact">Book Now</Link>
+          </Button>
+
           <Link
             href="https://wa.me/9779861884374?text=Hello,%20I'm%20interested%20in%20learning%20more%20about%20Manaslu%20trekking."
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors shadow-md group"
+            className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-500 text-white px-4 py-2 rounded-full hover:shadow-lg hover:from-green-500 hover:to-green-600 transition-all shadow-md group"
           >
             <div className="flex items-center gap-2">
               <svg
@@ -58,15 +81,29 @@ const Navbar04Page = () => {
               </svg>
               <div className="flex flex-col">
                 <span className="font-medium text-sm leading-tight">
-                  Contact Your Guide
+                  Chat with Samrat
                 </span>
-                <span className="text-xs leading-tight">
-                  Samrat Adhikari: +977 9861884374
-                </span>
+                <span className="text-xs leading-tight">+977 9861884374</span>
               </div>
             </div>
           </Link>
+
+          <Button
+            asChild
+            variant="ghost"
+            size="icon"
+            className={`rounded-full ${
+              scrolled
+                ? "text-primary hover:text-primary hover:bg-primary/10"
+                : "text-white hover:text-white hover:bg-white/10"
+            }`}
+          >
+            <Link href="tel:+9779861884374">
+              <PhoneIcon className="h-5 w-5" />
+            </Link>
+          </Button>
         </div>
+
         {/* Mobile Menu */}
         <div className="md:hidden">
           <NavigationSheet />

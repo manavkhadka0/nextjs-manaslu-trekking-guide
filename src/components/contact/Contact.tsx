@@ -40,7 +40,10 @@ const Contact = ({
   }, []);
 
   return (
-    <div className={`relative min-h-screen overflow-hidden py-24 ${className}`}>
+    <div
+      id="contact"
+      className={`relative min-h-screen overflow-hidden py-24 scroll-mt-20 ${className}`}
+    >
       {/* Background image with overlay */}
       <div className="absolute inset-0 -z-10">
         <Image
@@ -194,9 +197,7 @@ const Contact = ({
             )}
             style={{ animationDelay: "0.6s" }}
           >
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-2 border border-white/10 shadow-lg">
-              <ContactForm className="bg-transparent" />
-            </div>
+            <ContactForm className="bg-transparent" />
           </div>
         </div>
 

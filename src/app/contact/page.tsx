@@ -67,7 +67,7 @@ export default function ContactPage() {
               asChild
               size="lg"
               variant="outline"
-              className="rounded-full"
+              className="rounded-full bg-black/30"
             >
               <Link href="/itinerary">View Trek Itinerary</Link>
             </Button>
