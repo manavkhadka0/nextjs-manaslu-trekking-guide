@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPostsByTag, getAllTags } from "@/lib/api/blog";
-import BlogList from "@/components/blog/blog-list";
+import BlogPageClient from "@/components/blog/blog-page-client";
+import { getPostsByTag, getAllCategories, getAllTags } from "@/lib/api/blog";
 
 interface TagPageProps {
   params: Promise<{
@@ -18,8 +18,8 @@ export async function generateMetadata({
   params,
 }: TagPageProps): Promise<Metadata> {
   const tags = await getAllTags();
-  const slug = await params;
-  const tag = tags.find((t) => t.slug === slug.slug);
+  const slug = (await params).slug;
+  const tag = tags.find((t) => t.slug === slug);
 
   if (!tag) {
     return {
@@ -29,9 +29,7 @@ export async function generateMetadata({
 
   return {
     title: `${tag.name} | Manaslu Trekking Guide Blog`,
-    description:
-      tag.description ||
-      `Explore our articles tagged with ${tag.name} in the Manaslu region.`,
+    description: `Explore our articles tagged with ${tag.name} in the Manaslu region.`,
   };
 }
 
@@ -45,45 +43,47 @@ export async function generateStaticParams() {
 }
 
 export default async function TagPage({ params, searchParams }: TagPageProps) {
-  const slug = await params;
-  const searchParamsdata = await searchParams;
-  const page = searchParamsdata.page ? parseInt(searchParamsdata.page) : 1;
+  const slug = (await params).slug;
+  const searchParamsObj = await searchParams;
+  const page = searchParamsObj.page ? parseInt(searchParamsObj.page) : 1;
   const limit = 9;
-  const offset = (page - 1) * limit;
 
   // Get all tags to find the current one
   const tags = await getAllTags();
-  const currentTag = tags.find((t) => t.slug === slug.slug);
+  const currentTag = tags.find((t) => t.slug === slug);
 
-  // If tag doesn't exist, return 404
   if (!currentTag) {
     notFound();
   }
 
-  // Get posts for this tag with pagination
-  const { posts, total } = await getPostsByTag(slug.slug, {
+  // Get posts for this tag
+  const { posts, total } = await getPostsByTag(slug, {
     limit,
-    offset,
-    search: searchParamsdata.search,
+    offset: (page - 1) * limit,
+    search: searchParamsObj.search,
   });
 
-  // Calculate total pages
-  const totalPages = Math.ceil(total / limit);
+  // Get all categories for filters
+  const categories = await getAllCategories();
+
+  // Serialize the data to ensure it's safe to pass to client components
+  const serializedPosts = JSON.parse(JSON.stringify(posts));
+  const serializedCategories = JSON.parse(JSON.stringify(categories));
+  const serializedTags = JSON.parse(JSON.stringify(tags));
 
   return (
-    <BlogList
-      posts={posts}
-      tags={tags}
-      currentTag={currentTag}
+    <BlogPageClient
+      initialPosts={serializedPosts}
+      categories={serializedCategories}
+      tags={serializedTags}
       currentPage={page}
-      totalPages={totalPages}
+      totalPages={Math.ceil(total / limit)}
       totalPosts={total}
-      searchParams={{
-        ...searchParamsdata,
-        tag: slug.slug,
+      initialSearchParams={{
+        page: searchParamsObj.page,
+        search: searchParamsObj.search,
+        tag: slug,
       }}
-      showTagFilter={false}
-      pageType="tag"
     />
   );
 }

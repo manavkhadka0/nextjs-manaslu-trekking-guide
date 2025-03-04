@@ -12,7 +12,7 @@ import Link from "next/link";
 
 const Hero03 = () => {
   return (
-    <div className="relative min-h-[100vh] w-full flex flex-col gap-6 sm:gap-10 items-center justify-center px-4 sm:px-6 py-20 sm:py-16">
+    <div className="relative min-h-[100vh] w-full flex flex-col gap-6 sm:gap-10 items-center justify-center px-4 sm:px-6 py-20 sm:py-16 pt-28 sm:pt-32">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -32,7 +32,7 @@ const Hero03 = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl text-white mt-16 md:mt-0">
+      <div className="relative z-10 text-center max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl text-white">
         <Badge className="bg-gradient-to-br via-70% from-primary via-muted/30 to-primary rounded-full py-1 border-none text-xs sm:text-sm">
           Your Personal Himalayan Guide
         </Badge>

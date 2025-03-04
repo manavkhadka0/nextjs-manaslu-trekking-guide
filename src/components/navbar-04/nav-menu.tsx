@@ -16,39 +16,82 @@ export const NavMenu = ({ scrolled, ...props }: NavMenuProps) => (
   <NavigationMenu {...props}>
     <NavigationMenuList
       className={cn(
-        "gap-6 text-white space-x-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start",
-        scrolled && "text-black"
+        "gap-8 space-x-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start data-[orientation=vertical]:gap-4",
+        scrolled ? "text-foreground" : "text-white",
+        props.className
       )}
       data-scrolled={scrolled ? "true" : "false"}
     >
-      <NavigationMenuItem>
+      <NavigationMenuItem className="relative group">
         <NavigationMenuLink asChild>
-          <Link href="/">Home</Link>
+          <Link
+            href="/"
+            className={cn(
+              "text-sm font-medium transition-colors hover:text-primary"
+            )}
+          >
+            Home
+          </Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
-      <NavigationMenuItem>
+      <NavigationMenuItem className="relative group">
         <NavigationMenuLink asChild>
-          <Link href="/services">Services</Link>
+          <Link
+            href="/services"
+            className={cn(
+              "text-sm font-medium transition-colors hover:text-primary"
+            )}
+          >
+            Services
+          </Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
-      <NavigationMenuItem>
+      <NavigationMenuItem className="relative group">
         <NavigationMenuLink asChild>
-          <Link href="/about">About</Link>
+          <Link
+            href="/about"
+            className={cn(
+              "text-sm font-medium transition-colors hover:text-primary"
+            )}
+          >
+            About
+          </Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
-      <NavigationMenuItem>
+      <NavigationMenuItem className="relative group">
         <NavigationMenuLink asChild>
-          <Link href="/media">Media</Link>
+          <Link
+            href="/media"
+            className={cn(
+              "text-sm font-medium transition-colors hover:text-primary"
+            )}
+          >
+            Media
+          </Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
-      <NavigationMenuItem>
+      <NavigationMenuItem className="relative group">
         <NavigationMenuLink asChild>
-          <Link href="/blog">Blog</Link>
+          <Link
+            href="/blog"
+            className={cn(
+              "text-sm font-medium transition-colors hover:text-primary"
+            )}
+          >
+            Blog
+          </Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
-      <NavigationMenuItem>
+      <NavigationMenuItem className="relative group">
         <NavigationMenuLink asChild>
-          <Link href="/contact">Contact</Link>
+          <Link
+            href="#contact"
+            className={cn(
+              "text-sm font-medium transition-colors hover:text-primary"
+            )}
+          >
+            Contact
+          </Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
     </NavigationMenuList>

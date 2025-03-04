@@ -1,11 +1,11 @@
 import { Metadata } from "next";
+import BlogPageClient from "@/components/blog/blog-page-client";
 import { getAllPosts, getAllCategories, getAllTags } from "@/lib/api/blog";
-import BlogList from "@/components/blog/blog-list";
 
 export const metadata: Metadata = {
-  title: "Blog | Manaslu Trekking Guide",
+  title: "Blog | Samrat Adhikari - Manaslu Trek Guide",
   description:
-    "Discover expert trekking tips, latest trail updates, and inspiring stories from the Manaslu region.",
+    "Discover expert trekking tips, latest trail updates, and inspiring stories from the Himalayas.",
 };
 
 interface BlogPageProps {
@@ -18,41 +18,41 @@ interface BlogPageProps {
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  // Convert searchParams to a regular object to avoid the dynamic API issue
-  const searchParamsdata = await searchParams;
-
-  const searchParamsObj = Object.fromEntries(
-    Object.entries(searchParamsdata || {})
-  );
-
+  // Get the current page from the URL
+  const searchParamsObj = await searchParams;
   const page = searchParamsObj.page ? parseInt(searchParamsObj.page) : 1;
   const limit = 9;
-  const offset = (page - 1) * limit;
 
-  // Get posts with pagination and filters
+  // Fetch posts, categories, and tags
   const { posts, total } = await getAllPosts({
     limit,
-    offset,
+    offset: (page - 1) * limit,
     search: searchParamsObj.search,
+    category: searchParamsObj.category,
+    tag: searchParamsObj.tag,
   });
-
-  // Get all categories and tags for filters
   const categories = await getAllCategories();
   const tags = await getAllTags();
 
-  // Calculate total pages
-  const totalPages = Math.ceil(total / limit);
+  // Serialize the data to ensure it's safe to pass to client components
+  const serializedPosts = JSON.parse(JSON.stringify(posts));
+  const serializedCategories = JSON.parse(JSON.stringify(categories));
+  const serializedTags = JSON.parse(JSON.stringify(tags));
 
   return (
-    <BlogList
-      posts={posts}
-      categories={categories}
-      tags={tags}
+    <BlogPageClient
+      initialPosts={serializedPosts}
+      categories={serializedCategories}
+      tags={serializedTags}
       currentPage={page}
-      totalPages={totalPages}
+      totalPages={Math.ceil(total / limit)}
       totalPosts={total}
-      searchParams={searchParamsObj}
-      pageType="main"
+      initialSearchParams={{
+        page: searchParamsObj.page,
+        search: searchParamsObj.search,
+        category: searchParamsObj.category,
+        tag: searchParamsObj.tag,
+      }}
     />
   );
 }
