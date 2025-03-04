@@ -12,13 +12,14 @@ type NavMenuProps = NavigationMenuProps & {
   scrolled?: boolean;
 };
 
-export const NavMenu = (props: NavMenuProps) => (
+export const NavMenu = ({ scrolled, ...props }: NavMenuProps) => (
   <NavigationMenu {...props}>
     <NavigationMenuList
       className={cn(
         "gap-6 text-white space-x-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start",
-        props.scrolled && "text-black"
+        scrolled && "text-black"
       )}
+      data-scrolled={scrolled ? "true" : "false"}
     >
       <NavigationMenuItem>
         <NavigationMenuLink asChild>

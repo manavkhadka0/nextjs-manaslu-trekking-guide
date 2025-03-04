@@ -1,31 +1,58 @@
-import Link from "next/link";
-import { type SanityDocument } from "next-sanity";
+import { Metadata } from "next";
+import { getAllPosts, getAllCategories, getAllTags } from "@/lib/api/blog";
+import BlogList from "@/components/blog/blog-list";
 
-import { client } from "@/sanity/client";
+export const metadata: Metadata = {
+  title: "Blog | Manaslu Trekking Guide",
+  description:
+    "Discover expert trekking tips, latest trail updates, and inspiring stories from the Manaslu region.",
+};
 
-const POSTS_QUERY = `*[
-  _type == "post"
-  && defined(slug.current)
-]|order(publishedAt desc)[0...12]{_id, title, slug, publishedAt}`;
+interface BlogPageProps {
+  searchParams: Promise<{
+    page?: string;
+    search?: string;
+    category?: string;
+    tag?: string;
+  }>;
+}
 
-const options = { next: { revalidate: 30 } };
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+  // Convert searchParams to a regular object to avoid the dynamic API issue
+  const searchParamsdata = await searchParams;
 
-export default async function IndexPage() {
-  const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY, {}, options);
+  const searchParamsObj = Object.fromEntries(
+    Object.entries(searchParamsdata || {})
+  );
+
+  const page = searchParamsObj.page ? parseInt(searchParamsObj.page) : 1;
+  const limit = 9;
+  const offset = (page - 1) * limit;
+
+  // Get posts with pagination and filters
+  const { posts, total } = await getAllPosts({
+    limit,
+    offset,
+    search: searchParamsObj.search,
+  });
+
+  // Get all categories and tags for filters
+  const categories = await getAllCategories();
+  const tags = await getAllTags();
+
+  // Calculate total pages
+  const totalPages = Math.ceil(total / limit);
 
   return (
-    <main className="container mx-auto min-h-screen max-w-3xl p-8">
-      <h1 className="text-4xl font-bold mb-8">Posts</h1>
-      <ul className="flex flex-col gap-y-4">
-        {posts.map((post: any) => (
-          <li className="hover:underline" key={post._id}>
-            <Link href={`/${post.slug.current}`}>
-              <h2 className="text-xl font-semibold">{post.title}</h2>
-              <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </main>
+    <BlogList
+      posts={posts}
+      categories={categories}
+      tags={tags}
+      currentPage={page}
+      totalPages={totalPages}
+      totalPosts={total}
+      searchParams={searchParamsObj}
+      pageType="main"
+    />
   );
 }

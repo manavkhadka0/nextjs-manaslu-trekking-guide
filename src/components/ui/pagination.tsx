@@ -1,117 +1,214 @@
-import * as React from "react"
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
+"use client";
 
-import { cn } from "@/lib/utils"
-import { ButtonProps, buttonVariants } from "@/components/ui/button"
+import React from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
-  <nav
-    role="navigation"
-    aria-label="pagination"
-    className={cn("mx-auto flex w-full justify-center", className)}
-    {...props}
-  />
-)
-Pagination.displayName = "Pagination"
+interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+  searchParams: URLSearchParams | ReturnType<typeof useSearchParams>;
+  className?: string;
+}
 
-const PaginationContent = React.forwardRef<
-  HTMLUListElement,
-  React.ComponentProps<"ul">
->(({ className, ...props }, ref) => (
-  <ul
-    ref={ref}
-    className={cn("flex flex-row items-center gap-1", className)}
-    {...props}
-  />
-))
-PaginationContent.displayName = "PaginationContent"
-
-const PaginationItem = React.forwardRef<
-  HTMLLIElement,
-  React.ComponentProps<"li">
->(({ className, ...props }, ref) => (
-  <li ref={ref} className={cn("", className)} {...props} />
-))
-PaginationItem.displayName = "PaginationItem"
-
-type PaginationLinkProps = {
-  isActive?: boolean
-} & Pick<ButtonProps, "size"> &
-  React.ComponentProps<"a">
-
-const PaginationLink = ({
+export function Pagination({
+  currentPage,
+  totalPages,
+  baseUrl,
+  searchParams,
   className,
-  isActive,
-  size = "icon",
-  ...props
-}: PaginationLinkProps) => (
-  <a
-    aria-current={isActive ? "page" : undefined}
-    className={cn(
-      buttonVariants({
-        variant: isActive ? "outline" : "ghost",
-        size,
-      }),
-      className
-    )}
-    {...props}
-  />
-)
-PaginationLink.displayName = "PaginationLink"
+}: PaginationProps) {
+  // Don't render pagination if there's only one page
+  if (totalPages <= 1) {
+    return null;
+  }
 
-const PaginationPrevious = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
-    aria-label="Go to previous page"
-    size="default"
-    className={cn("gap-1 pl-2.5", className)}
-    {...props}
-  >
-    <ChevronLeft className="h-4 w-4" />
-    <span>Previous</span>
-  </PaginationLink>
-)
-PaginationPrevious.displayName = "PaginationPrevious"
+  // Create a function to generate page URLs
+  const createPageUrl = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (page === 1) {
+      params.delete("page");
+    } else {
+      params.set("page", page.toString());
+    }
+    return `${baseUrl}?${params.toString()}`;
+  };
 
-const PaginationNext = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
-    aria-label="Go to next page"
-    size="default"
-    className={cn("gap-1 pr-2.5", className)}
-    {...props}
-  >
-    <span>Next</span>
-    <ChevronRight className="h-4 w-4" />
-  </PaginationLink>
-)
-PaginationNext.displayName = "PaginationNext"
+  // Calculate the range of pages to display
+  const getPageRange = () => {
+    const delta = 2; // Number of pages to show on each side of current page
+    const range = [];
+    const rangeWithDots = [];
+    let l;
 
-const PaginationEllipsis = ({
-  className,
-  ...props
-}: React.ComponentProps<"span">) => (
-  <span
-    aria-hidden
-    className={cn("flex h-9 w-9 items-center justify-center", className)}
-    {...props}
-  >
-    <MoreHorizontal className="h-4 w-4" />
-    <span className="sr-only">More pages</span>
-  </span>
-)
-PaginationEllipsis.displayName = "PaginationEllipsis"
+    // Always include page 1
+    range.push(1);
 
-export {
-  Pagination,
-  PaginationContent,
-  PaginationLink,
-  PaginationItem,
-  PaginationPrevious,
-  PaginationNext,
-  PaginationEllipsis,
+    // Calculate the range of pages to show
+    for (let i = currentPage - delta; i <= currentPage + delta; i++) {
+      if (i > 1 && i < totalPages) {
+        range.push(i);
+      }
+    }
+
+    // Always include the last page
+    if (totalPages > 1) {
+      range.push(totalPages);
+    }
+
+    // Add dots where needed
+    for (const i of range) {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l !== 1) {
+          rangeWithDots.push("...");
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    }
+
+    return rangeWithDots;
+  };
+
+  const pageRange = getPageRange();
+
+  return (
+    <nav
+      role="navigation"
+      aria-label="Pagination Navigation"
+      className={cn("flex justify-center items-center gap-1", className)}
+    >
+      {/* First page */}
+      <Button
+        variant="outline"
+        size="icon"
+        className="h-8 w-8"
+        disabled={currentPage === 1}
+        asChild={currentPage !== 1}
+      >
+        {currentPage !== 1 ? (
+          <Link href={createPageUrl(1)} aria-label="Go to first page">
+            <ChevronsLeft className="h-4 w-4" />
+          </Link>
+        ) : (
+          <span>
+            <ChevronsLeft className="h-4 w-4" />
+          </span>
+        )}
+      </Button>
+
+      {/* Previous page */}
+      <Button
+        variant="outline"
+        size="icon"
+        className="h-8 w-8"
+        disabled={currentPage === 1}
+        asChild={currentPage !== 1}
+      >
+        {currentPage !== 1 ? (
+          <Link
+            href={createPageUrl(currentPage - 1)}
+            aria-label="Go to previous page"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Link>
+        ) : (
+          <span>
+            <ChevronLeft className="h-4 w-4" />
+          </span>
+        )}
+      </Button>
+
+      {/* Page numbers */}
+      {pageRange.map((page, i) => {
+        if (page === "...") {
+          return (
+            <span
+              key={`ellipsis-${i}`}
+              className="px-3 py-1.5 text-sm text-gray-500"
+            >
+              {page}
+            </span>
+          );
+        }
+
+        const pageNum = page as number;
+        const isCurrentPage = pageNum === currentPage;
+
+        return (
+          <Button
+            key={`page-${pageNum}`}
+            variant={isCurrentPage ? "default" : "outline"}
+            size="sm"
+            className="h-8 w-8 p-0"
+            asChild={!isCurrentPage}
+            aria-current={isCurrentPage ? "page" : undefined}
+          >
+            {!isCurrentPage ? (
+              <Link
+                href={createPageUrl(pageNum)}
+                aria-label={`Go to page ${pageNum}`}
+              >
+                {pageNum}
+              </Link>
+            ) : (
+              <span>{pageNum}</span>
+            )}
+          </Button>
+        );
+      })}
+
+      {/* Next page */}
+      <Button
+        variant="outline"
+        size="icon"
+        className="h-8 w-8"
+        disabled={currentPage === totalPages}
+        asChild={currentPage !== totalPages}
+      >
+        {currentPage !== totalPages ? (
+          <Link
+            href={createPageUrl(currentPage + 1)}
+            aria-label="Go to next page"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Link>
+        ) : (
+          <span>
+            <ChevronRight className="h-4 w-4" />
+          </span>
+        )}
+      </Button>
+
+      {/* Last page */}
+      <Button
+        variant="outline"
+        size="icon"
+        className="h-8 w-8"
+        disabled={currentPage === totalPages}
+        asChild={currentPage !== totalPages}
+      >
+        {currentPage !== totalPages ? (
+          <Link href={createPageUrl(totalPages)} aria-label="Go to last page">
+            <ChevronsRight className="h-4 w-4" />
+          </Link>
+        ) : (
+          <span>
+            <ChevronsRight className="h-4 w-4" />
+          </span>
+        )}
+      </Button>
+    </nav>
+  );
 }

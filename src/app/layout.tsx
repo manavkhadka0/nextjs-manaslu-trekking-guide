@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar04Page from "@/components/navbar-04/navbar-04";
 import Footer05Page from "@/components/footer-05/footer-05";
+import { Toaster } from "@/components/ui/sonner";
 
 const bricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
@@ -32,6 +33,7 @@ export default function RootLayout({
         <Navbar04Page />
         {children}
         <Footer05Page />
+        <Toaster />
       </body>
     </html>
   );

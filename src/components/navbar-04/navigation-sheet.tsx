@@ -13,8 +13,12 @@ export const NavigationSheet = () => {
         </Button>
       </SheetTrigger>
       <SheetContent>
-        <Logo scrolled />
-        <NavMenu orientation="vertical" className="mt-12 text-black" scrolled />
+        <Logo scrolled={true} />
+        <NavMenu
+          orientation="vertical"
+          className="mt-12 text-black"
+          scrolled={true}
+        />
       </SheetContent>
     </Sheet>
   );

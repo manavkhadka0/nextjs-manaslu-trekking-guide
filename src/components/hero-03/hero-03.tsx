@@ -28,7 +28,7 @@ const Hero03 = () => {
           Experience the Majestic Manaslu Circuit Trek
         </h1>
         <p className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg">
-          Discover one of Nepal's most spectacular treks, offering pristine
+          Discover one of Nepal&apos;s most spectacular treks, offering pristine
           mountain views, rich cultural experiences, and breathtaking landscapes
           away from the crowds.
         </p>
