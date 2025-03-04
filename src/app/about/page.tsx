@@ -135,12 +135,12 @@ export default async function AboutPage() {
                   which has become my specialization.
                 </p>
                 <p>
-                  Throughout my career, I've dedicated myself to continuous
-                  learning - studying the region's ecology, history, and
+                  Throughout my career, I&apos;ve dedicated myself to continuous
+                  learning - studying the region&apos;s ecology, history, and
                   cultural heritage while perfecting my skills in navigation,
-                  safety protocols, and emergency response. I'm certified by the
-                  Nepal Academy of Tourism and Hotel Management (NATHM) and hold
-                  advanced wilderness first aid certification.
+                  safety protocols, and emergency response. I&apos;m certified
+                  by the Nepal Academy of Tourism and Hotel Management (NATHM)
+                  and hold advanced wilderness first aid certification.
                 </p>
                 <p className="font-medium text-foreground">
                   Today, I take pride in being one of the most knowledgeable
@@ -199,10 +199,10 @@ export default async function AboutPage() {
           <div className="max-w-4xl mx-auto text-center text-white">
             <QuoteIcon className="h-16 w-16 mx-auto text-primary/80 mb-6" />
             <blockquote className="text-2xl md:text-3xl font-medium italic mb-8">
-              &quot;The Himalayas aren't just mountains; they're living entities
-              that teach us humility, perseverance, and the true meaning of
-              beauty. My greatest joy is sharing these lessons with trekkers and
-              watching them transform through their journey.&quot;
+              &quot;The Himalayas aren&apos;t just mountains; they&apos;re
+              living entities that teach us humility, perseverance, and the true
+              meaning of beauty. My greatest joy is sharing these lessons with
+              trekkers and watching them transform through their journey.&quot;
             </blockquote>
             <div className="flex items-center justify-center">
               <div className="h-px w-12 bg-primary/50 mr-4" />
@@ -225,7 +225,7 @@ export default async function AboutPage() {
               What I Bring to Your Trek
             </h2>
             <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-              More than just guiding you along the trail, I'm committed to
+              More than just guiding you along the trail, I&apos;m committed to
               creating a safe, educational, and transformative experience in the
               Himalayas.
             </p>
@@ -437,7 +437,7 @@ export default async function AboutPage() {
                 </div>
               </div>
               <p className="text-gray-700 dark:text-gray-300 italic">
-                &quot;As an experienced trekker, I've had many guides, but
+                &quot;As an experienced trekker, I&apos;ve had many guides, but
                 Samrat stands out for his professionalism and attention to
                 detail. His safety protocols were impeccable, especially during
                 our crossing of Larkya La Pass. Beyond technical skills, his

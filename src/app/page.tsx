@@ -61,11 +61,11 @@ export default async function HomePage() {
                 Manaslu Expert
               </h2>
               <p className="text-lg text-muted-foreground mb-6">
-                Born and raised in the foothills of the Himalayas, I've spent
-                the last 10 years guiding trekkers through the majestic Manaslu
-                Circuit. My journey began as a porter, and through dedication
-                and passion, I've become one of the most sought-after guides in
-                the region.
+                Born and raised in the foothills of the Himalayas, I&apos;ve
+                spent the last 10 years guiding trekkers through the majestic
+                Manaslu Circuit. My journey began as a porter, and through
+                dedication and passion, I&apos;ve become one of the most
+                sought-after guides in the region.
               </p>
               <div className="space-y-4 mb-8">
                 <div className="flex items-start gap-3">
@@ -176,7 +176,7 @@ export default async function HomePage() {
               <span className="text-primary">Special</span>
             </h2>
             <p className="text-lg text-muted-foreground">
-              I don't just guide you through the mountains - I share my
+              I don&apos;t just guide you through the mountains - I share my
               homeland, culture, and passion for the Himalayas to create an
               unforgettable journey.
             </p>

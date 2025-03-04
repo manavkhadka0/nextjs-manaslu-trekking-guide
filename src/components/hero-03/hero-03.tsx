@@ -42,9 +42,9 @@ const Hero03 = () => {
         </h1>
         <p className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg">
           Experience the majestic Manaslu Circuit with a local expert who knows
-          every trail, village, and story. I'll guide you through breathtaking
-          landscapes, authentic cultural experiences, and create memories that
-          last a lifetime.
+          every trail, village, and story. I&apos;ll guide you through
+          breathtaking landscapes, authentic cultural experiences, and create
+          memories that last a lifetime.
         </p>
 
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">

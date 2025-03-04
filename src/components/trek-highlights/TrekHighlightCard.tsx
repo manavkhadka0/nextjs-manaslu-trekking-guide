@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import {
   PlayCircleIcon,
   XIcon,

@@ -5,12 +5,7 @@ import {
 } from "@/lib/sanity/queries/trekHighlightQueries";
 import TrekHighlightsGrid from "@/components/trek-highlights/TrekHighlightsGrid";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  ArrowRightIcon,
-  CameraIcon,
-  MountainIcon,
-  VideoIcon,
-} from "lucide-react";
+import { CameraIcon, VideoIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -20,66 +15,6 @@ export const metadata: Metadata = {
   description:
     "Explore videos and images from the Manaslu Circuit Trek. Get a glimpse of the breathtaking landscapes, cultural experiences, and adventures that await you.",
 };
-
-// Sample gallery images - in a real app, these would come from Sanity
-const galleryImages = [
-  {
-    id: "img1",
-    src: "/images/WhatsApp Image 2025-02-28 at 11.57.59.jpeg",
-    alt: "Manaslu Circuit Trek Landscape",
-    caption: "Stunning views from Manaslu Circuit",
-    location: "Manaslu Conservation Area",
-  },
-  {
-    id: "img2",
-    src: "/images/WhatsApp Image 2025-02-28 at 11.57.58.jpeg",
-    alt: "Trekkers on Manaslu Circuit",
-    caption: "Trekkers enjoying the journey",
-    location: "Larkya La Pass",
-  },
-  {
-    id: "img3",
-    src: "/images/WhatsApp Image 2025-02-28 at 11.57.57.jpeg",
-    alt: "Local village on Manaslu Circuit",
-    caption: "Traditional village life",
-    location: "Samagaun Village",
-  },
-  {
-    id: "img4",
-    src: "/images/WhatsApp Image 2025-02-28 at 11.57.57 (1).jpeg",
-    alt: "Mountain views on Manaslu Circuit",
-    caption: "Majestic mountain panorama",
-    location: "Dharamsala",
-  },
-  {
-    id: "img5",
-    src: "/images/WhatsApp Image 2025-02-28 at 11.57.58 (1).jpeg",
-    alt: "Buddhist prayer flags",
-    caption: "Prayer flags along the trail",
-    location: "Manaslu Base Camp",
-  },
-  {
-    id: "img6",
-    src: "/images/WhatsApp Image 2025-02-28 at 11.57.59 (1).jpeg",
-    alt: "Trekking guide with clients",
-    caption: "Guiding trekkers through the mountains",
-    location: "Manaslu Circuit",
-  },
-  {
-    id: "img7",
-    src: "/images/WhatsApp Image 2025-02-28 at 11.57.59 (2).jpeg",
-    alt: "Mountain sunset",
-    caption: "Sunset over the Himalayas",
-    location: "Manaslu Region",
-  },
-  {
-    id: "img8",
-    src: "/images/WhatsApp Image 2025-02-28 at 11.57.58.jpeg",
-    alt: "River crossing on trek",
-    caption: "Crossing mountain streams",
-    location: "Budhi Gandaki River",
-  },
-];
 
 export default async function MediaPage() {
   // Fetch videos and photo galleries from Sanity
