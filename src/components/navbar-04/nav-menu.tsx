@@ -85,7 +85,7 @@ export const NavMenu = ({ scrolled, ...props }: NavMenuProps) => (
       <NavigationMenuItem className="relative group">
         <NavigationMenuLink asChild>
           <Link
-            href="#contact"
+            href="/contact"
             className={cn(
               "text-sm font-medium transition-colors hover:text-primary"
             )}
