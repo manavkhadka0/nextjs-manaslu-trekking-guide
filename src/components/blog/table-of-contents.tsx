@@ -51,7 +51,7 @@ export function TableOfContents({ content }: TableOfContentsProps) {
       ) {
         // Create an ID from the heading text
         const text = block.children.map((child) => child.text).join("");
-        let id = generateId(text);
+        const id = generateId(text);
 
         // Track and handle duplicate IDs
         idCounts[id] = (idCounts[id] || 0) + 1;
