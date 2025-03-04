@@ -124,60 +124,6 @@ const SocialLink = ({
 const Footer05Page = () => {
   return (
     <footer className="relative w-full">
-      {/* Newsletter Section */}
-      <div className="relative bg-gradient-to-b from-gray-900 via-gray-900 to-gray-950 py-16">
-        {/* Decorative elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative z-10 bg-white/5 backdrop-blur-lg rounded-2xl p-8 md:p-12 shadow-xl border border-white/10">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
-              <div className="lg:col-span-3">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                  Join Our Newsletter
-                </h3>
-                <p className="text-gray-200 mb-6 max-w-2xl">
-                  Subscribe to receive updates on new treks, seasonal offers,
-                  and travel tips for your Manaslu adventure.
-                </p>
-              </div>
-              <div className="lg:col-span-2">
-                <form className="flex flex-col sm:flex-row gap-3">
-                  <Input
-                    type="email"
-                    placeholder="Your email address"
-                    className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    required
-                  />
-                  <Button className="bg-primary hover:bg-primary/90 text-white font-medium px-6">
-                    Subscribe
-                  </Button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Mountain Silhouette Header */}
-      <div className="relative w-full bg-gray-950">
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-950/0 to-gray-950 z-10"></div>
-        <Image
-          src="/Untitled design.png"
-          alt="Nepal Mountains Silhouette"
-          width={1920}
-          height={400}
-          className="w-full h-[180px] md:h-[280px] object-contain relative z-0"
-          style={{
-            objectPosition: "bottom",
-          }}
-          priority
-        />
-      </div>
-
       {/* Main Footer Content */}
       <div className="w-full bg-gray-950 -mt-1 relative">
         {/* Decorative elements */}
@@ -195,11 +141,11 @@ const Footer05Page = () => {
             <div>
               <div className="mb-6">
                 <Image
-                  src="/logo-white.png"
+                  src="/images/logo_2.png"
                   alt="Manaslu Trekking Guide"
                   width={180}
                   height={60}
-                  className="h-12 w-auto"
+                  className="h-24 w-auto"
                 />
               </div>
               <p className="text-gray-300 mb-6">
