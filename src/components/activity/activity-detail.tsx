@@ -30,6 +30,7 @@ import {
   Sun,
   Activity,
 } from "lucide-react";
+import { portableTextComponents } from "@/lib/portabletextcomponents";
 
 interface ActivityDetailProps {
   activity: ActivityDetailType;
@@ -48,6 +49,12 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
       ["overview", "itinerary", "gallery", "faqs", "reviews"].includes(hash)
     ) {
       setActiveTab(hash);
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
     }
 
     const handleScroll = () => {
@@ -62,6 +69,15 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
   const handleTabChange = (value: string) => {
     setActiveTab(value);
     window.history.pushState(null, "", `${pathname}#${value}`);
+    // Scroll to the top of the content with smooth behavior
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    const element = document.getElementById(value);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   return (
@@ -132,8 +148,8 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
 
       {/* Sticky Navigation */}
       <div
-        className={`sticky top-0 z-30 bg-white shadow-md transition-all ${
-          scrolled ? "py-2" : "py-4"
+        className={`sticky top-24 z-40 bg-white/95 backdrop-blur-sm border-b transition-all duration-300 ${
+          scrolled ? "py-2 shadow-lg" : "py-4"
         }`}
       >
         <div className="container mx-auto px-4">
@@ -143,12 +159,37 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
             onValueChange={handleTabChange}
             className="w-full"
           >
-            <TabsList className="w-full justify-start overflow-x-auto">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="itinerary">Itinerary</TabsTrigger>
-              <TabsTrigger value="gallery">Gallery</TabsTrigger>
-              <TabsTrigger value="faqs">FAQs</TabsTrigger>
-              <TabsTrigger value="reviews">Reviews</TabsTrigger>
+            <TabsList className="w-full h-auto justify-start gap-2 bg-transparent p-0 overflow-x-auto flex-nowrap no-scrollbar">
+              <TabsTrigger
+                value="overview"
+                className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-sm rounded-full px-6 py-2 transition-all hover:bg-gray-100"
+              >
+                Overview
+              </TabsTrigger>
+              <TabsTrigger
+                value="itinerary"
+                className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-sm rounded-full px-6 py-2 transition-all hover:bg-gray-100"
+              >
+                Itinerary
+              </TabsTrigger>
+              <TabsTrigger
+                value="gallery"
+                className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-sm rounded-full px-6 py-2 transition-all hover:bg-gray-100"
+              >
+                Gallery
+              </TabsTrigger>
+              <TabsTrigger
+                value="faqs"
+                className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-sm rounded-full px-6 py-2 transition-all hover:bg-gray-100"
+              >
+                FAQs
+              </TabsTrigger>
+              <TabsTrigger
+                value="reviews"
+                className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:shadow-sm rounded-full px-6 py-2 transition-all hover:bg-gray-100"
+              >
+                Reviews
+              </TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
@@ -163,27 +204,36 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
           className="w-full"
         >
           {/* Overview Tab */}
-          <TabsContent value="overview" className="mt-6">
+          <TabsContent value="overview" className="mt-6" id="overview">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Main Content */}
               <div className="lg:col-span-2">
                 {/* Tour Description */}
-                <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-                  <h2 className="text-2xl font-bold mb-4">Tour Description</h2>
-                  <div className="prose max-w-none">
-                    {activity.tour_description && (
-                      <PortableText value={activity.tour_description} />
-                    )}
-                  </div>
+                <h2 className="text-2xl font-bold mb-4">Tour Description</h2>
+                <div className="">
+                  {activity.tour_description && (
+                    <PortableText
+                      value={activity.tour_description}
+                      components={portableTextComponents}
+                    />
+                  )}
                 </div>
 
                 {/* Tour Highlights */}
                 <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
                   <h2 className="text-2xl font-bold mb-4">Tour Highlights</h2>
-                  <div className="prose max-w-none">
-                    {activity.tour_highlights && (
-                      <PortableText value={activity.tour_highlights} />
-                    )}
+                  <div className="space-y-2">
+                    {activity.tour_highlights &&
+                      activity.tour_highlights.map(
+                        (highlight: any, index: number) => (
+                          <div key={index} className="flex items-start gap-2">
+                            <Star className="h-5 w-5 text-yellow-500 mt-0.5 shrink-0" />
+                            <span className="text-gray-700">
+                              {highlight.children[0].text}
+                            </span>
+                          </div>
+                        )
+                      )}
                   </div>
                 </div>
 
@@ -215,7 +265,10 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
                   </h2>
                   <div className="prose max-w-none">
                     {activity.additional_info && (
-                      <PortableText value={activity.additional_info} />
+                      <PortableText
+                        value={activity.additional_info}
+                        components={portableTextComponents}
+                      />
                     )}
                   </div>
                 </div>
@@ -329,7 +382,9 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
 
                 {/* Includes & Excludes */}
                 <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-                  <h3 className="text-xl font-bold mb-4">What's Included</h3>
+                  <h3 className="text-xl font-bold mb-4">
+                    What&apos;s Included
+                  </h3>
                   {activity.tour_includes &&
                     activity.tour_includes.length > 0 && (
                       <ul className="space-y-2 mb-6">
@@ -342,7 +397,9 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
                       </ul>
                     )}
 
-                  <h3 className="text-xl font-bold mb-4">What's Excluded</h3>
+                  <h3 className="text-xl font-bold mb-4">
+                    What&apos;s Excluded
+                  </h3>
                   {activity.tour_excludes &&
                     activity.tour_excludes.length > 0 && (
                       <ul className="space-y-2">
@@ -357,13 +414,44 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
                 </div>
 
                 {/* CTA */}
-                <div className="bg-primary/10 rounded-lg p-6 mb-8">
+                <div className="sticky top-32 bg-primary/10 rounded-lg p-6 mb-8">
                   <h3 className="text-xl font-bold mb-2">Ready to Book?</h3>
                   <p className="text-gray-600 mb-4">
                     Secure your spot on this amazing adventure today.
                   </p>
-                  <Button className="w-full mb-2">Book Now</Button>
-                  <Button variant="outline" className="w-full">
+                  <Button
+                    className="w-full mb-2"
+                    onClick={() => {
+                      const message = `Hi, I'm interested in booking the ${
+                        activity.activity_title
+                      } trek.\n\nDetails:\n- Duration: ${
+                        activity.duration
+                      }\n- Price: $${
+                        activity.priceSale || activity.price
+                      }\n\nCould you provide more information?`;
+                      window.open(
+                        `https://wa.me/+9779851042334?text=${encodeURIComponent(
+                          message
+                        )}`,
+                        "_blank"
+                      );
+                    }}
+                  >
+                    Book Now
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => {
+                      const message = `Hi, I have some questions about the ${activity.activity_title} trek.`;
+                      window.open(
+                        `https://wa.me/+9779851042334?text=${encodeURIComponent(
+                          message
+                        )}`,
+                        "_blank"
+                      );
+                    }}
+                  >
                     Contact Us
                   </Button>
                 </div>
@@ -372,7 +460,7 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
           </TabsContent>
 
           {/* Itinerary Tab */}
-          <TabsContent value="itinerary" className="mt-6">
+          <TabsContent value="itinerary" className="mt-6" id="itinerary">
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-2xl font-bold mb-6 flex items-center">
                 <Clock className="h-6 w-6 mr-2 text-primary" />
@@ -452,7 +540,10 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
 
                           <div className="prose max-w-none">
                             {day.description && (
-                              <PortableText value={day.description} />
+                              <PortableText
+                                value={day.description}
+                                components={portableTextComponents}
+                              />
                             )}
                           </div>
                         </div>
@@ -469,7 +560,7 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
           </TabsContent>
 
           {/* Gallery Tab */}
-          <TabsContent value="gallery" className="mt-6">
+          <TabsContent value="gallery" className="mt-6" id="gallery">
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-2xl font-bold mb-6">Photo Gallery</h2>
 
@@ -496,7 +587,7 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
           </TabsContent>
 
           {/* FAQs Tab */}
-          <TabsContent value="faqs" className="mt-6">
+          <TabsContent value="faqs" className="mt-6" id="faqs">
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-2xl font-bold mb-6 flex items-center">
                 <Info className="h-6 w-6 mr-2 text-primary" />
@@ -512,7 +603,10 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="prose max-w-none">
-                          <PortableText value={faq.answer} />
+                          <PortableText
+                            value={faq.answer}
+                            components={portableTextComponents}
+                          />
                         </div>
                       </AccordionContent>
                     </AccordionItem>
@@ -527,7 +621,7 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
           </TabsContent>
 
           {/* Reviews Tab */}
-          <TabsContent value="reviews" className="mt-6">
+          <TabsContent value="reviews" className="mt-6" id="reviews">
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h2 className="text-2xl font-bold mb-6 flex items-center">
                 <Star className="h-6 w-6 mr-2 text-primary" />
