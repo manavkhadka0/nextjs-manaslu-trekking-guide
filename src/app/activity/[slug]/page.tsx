@@ -4,15 +4,16 @@ import { getActivityBySlug } from "@/lib/api/activity";
 import ActivityDetail from "@/components/activity/activity-detail";
 
 interface ActivityPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({
   params,
 }: ActivityPageProps): Promise<Metadata> {
-  const activity = await getActivityBySlug(params.slug);
+  const { slug } = await params;
+  const activity = await getActivityBySlug(slug);
 
   if (!activity) {
     return {
@@ -33,7 +34,8 @@ export async function generateMetadata({
 }
 
 export default async function ActivityPage({ params }: ActivityPageProps) {
-  const activity = await getActivityBySlug(params.slug);
+  const { slug } = await params;
+  const activity = await getActivityBySlug(slug);
 
   if (!activity) {
     notFound();
