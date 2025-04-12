@@ -79,7 +79,10 @@ const Hero03 = () => {
             className="rounded-full text-sm sm:text-base shadow-md border-white text-white hover:bg-white/20 hover:text-white w-full sm:w-auto mt-2 sm:mt-0 backdrop-blur-sm bg-black/30"
             asChild
           >
-            <Link href="https://wa.me/9779861884374" target="_blank">
+            <Link
+              href="https://wa.me/9779848740081?text=Hello%20Samrat%2C%20I%20want%20to%20book%20a%20trek%20with%20you."
+              target="_blank"
+            >
               <MessageCircleIcon className="mr-1 !h-4 !w-4 sm:!h-5 sm:!w-5" />{" "}
               Chat With Me
             </Link>
@@ -90,7 +93,7 @@ const Hero03 = () => {
             className="rounded-full text-sm sm:text-base shadow-md border-white text-white hover:bg-white/20 hover:text-white w-full sm:w-auto mt-2 sm:mt-0 backdrop-blur-sm bg-black/30"
             asChild
           >
-            <Link href="tel:+9779861884374">
+            <Link href="tel:+977‪9848740081‬">
               <PhoneIcon className="mr-1 !h-4 !w-4 sm:!h-5 sm:!w-5" /> Call Now
             </Link>
           </Button>

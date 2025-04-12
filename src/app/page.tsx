@@ -113,7 +113,7 @@ export default async function HomePage() {
                 </Button>
                 <Button variant="outline" size="lg" className="rounded-full">
                   <Link
-                    href="https://wa.me/9779861884374"
+                    href="https://wa.me/9779848740081?text=Hello%20Samrat,%20I%20want%20to%20book%20a%20trek%20with%20you."
                     target="_blank"
                     className="flex items-center"
                   >
@@ -433,8 +433,8 @@ export default async function HomePage() {
 
       {/* Contact Section */}
       <Contact
-        email="samrat@manaslu-trekking.com"
-        phone="+977 9861884374"
+        email="adhikarisamrat4545@gmail.com"
+        phone="+977 ‪9848740081‬"
         address="Thamel, Kathmandu, Nepal"
       />
     </main>

@@ -35,7 +35,7 @@ export const NavigationSheet = () => {
             <Link href="#contact">Book Now</Link>
           </Button>
           <Link
-            href="https://wa.me/9779861884374?text=Hello,%20I'm%20interested%20in%20learning%20more%20about%20Manaslu%20trekking."
+            href="https://wa.me/977‪9848740081‬?text=Hello,%20I'm%20interested%20in%20learning%20more%20about%20Manaslu%20trekking."
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-500 text-white px-4 py-2 rounded-full hover:shadow-lg hover:from-green-500 hover:to-green-600 transition-all shadow-md group w-full justify-center"
@@ -55,7 +55,7 @@ export const NavigationSheet = () => {
                 <span className="font-medium text-sm leading-tight">
                   Chat with Samrat
                 </span>
-                <span className="text-xs leading-tight">+977 9861884374</span>
+                <span className="text-xs leading-tight">+977 ‪9848740081‬</span>
               </div>
             </div>
           </Link>

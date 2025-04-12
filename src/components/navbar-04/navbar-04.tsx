@@ -43,22 +43,22 @@ const Navbar04Page = () => {
         <div className="container mx-auto px-4 py-2 flex items-center justify-between">
           <div className="hidden md:flex items-center space-x-4">
             <a
-              href="tel:+9779861884374"
+              href="tel:+977‪9848740081‬"
               className={`text-sm flex items-center gap-1.5 ${
                 scrolled ? "text-muted-foreground" : "text-white/80"
               } hover:text-primary transition-colors`}
             >
               <PhoneIcon className="h-3.5 w-3.5" />
-              <span>+977 9861884374</span>
+              <span>+977 ‪9848740081‬</span>
             </a>
             <a
-              href="mailto:samratadhikari@gmail.com"
+              href="mailto:adhikarisamrat4545@gmail.com"
               className={`text-sm flex items-center gap-1.5 ${
                 scrolled ? "text-muted-foreground" : "text-white/80"
               } hover:text-primary transition-colors`}
             >
               <MailIcon className="h-3.5 w-3.5" />
-              <span>samratadhikari@gmail.com</span>
+              <span>adhikarisamrat4545@gmail.com</span>
             </a>
           </div>
 
@@ -109,7 +109,7 @@ const Navbar04Page = () => {
             </Button>
 
             <Link
-              href="https://wa.me/9779861884374?text=Hello,%20I'm%20interested%20in%20learning%20more%20about%20Manaslu%20trekking."
+              href="https://wa.me/977‪9848740081‬?text=Hello,%20I'm%20interested%20in%20learning%20more%20about%20Manaslu%20trekking."
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-500 text-white px-4 py-2 rounded-full hover:shadow-lg hover:from-green-500 hover:to-green-600 transition-all shadow-md group"
@@ -129,7 +129,9 @@ const Navbar04Page = () => {
                   <span className="font-medium text-sm leading-tight">
                     Chat with Samrat
                   </span>
-                  <span className="text-xs leading-tight">+977 9861884374</span>
+                  <span className="text-xs leading-tight">
+                    +977 ‪9848740081‬
+                  </span>
                 </div>
               </div>
             </Link>
