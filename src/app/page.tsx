@@ -125,7 +125,7 @@ export default async function HomePage() {
             <div className="order-1 lg:order-2 relative">
               <div className="relative h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/images/WhatsApp Image 2025-02-28 at 11.57.59 (1).jpeg"
+                  src="/images/about.jpeg"
                   alt="Samrat Adhikari - Manaslu Trek Guide"
                   fill
                   className="object-cover"
@@ -193,7 +193,7 @@ export default async function HomePage() {
                 cultural experiences that most tourists miss.
               </p>
               <Image
-                src="/images/WhatsApp Image 2025-02-28 at 11.57.58.jpeg"
+                src="/images/hidden-gems.jpeg"
                 alt="Hidden viewpoints on Manaslu Trek"
                 width={400}
                 height={250}
@@ -211,7 +211,7 @@ export default async function HomePage() {
                 communication devices and comprehensive emergency protocols.
               </p>
               <Image
-                src="/images/WhatsApp Image 2025-02-28 at 11.57.57.jpeg"
+                src="/images/safety-first.jpeg"
                 alt="Safety equipment for Manaslu Trek"
                 width={400}
                 height={250}
@@ -229,7 +229,7 @@ export default async function HomePage() {
                 ceremonies, and experience authentic Himalayan hospitality.
               </p>
               <Image
-                src="/images/WhatsApp Image 2025-02-28 at 11.57.57 (1).jpeg"
+                src="/images/cultural-immersion.jpeg"
                 alt="Cultural experiences on Manaslu Trek"
                 width={400}
                 height={250}
@@ -242,16 +242,6 @@ export default async function HomePage() {
 
       {/* Video Highlights Section */}
       <section id="videos" className="py-24 relative scroll-mt-20">
-        <div className="absolute inset-0 -z-10">
-          <Image
-            src="/images/WhatsApp Image 2025-02-28 at 11.57.58 (1).jpeg"
-            alt="Manaslu Trek Background"
-            fill
-            className="object-cover object-center opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background/95" />
-        </div>
-
         <div className="container mx-auto px-6">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <div className="inline-flex items-center justify-center px-4 py-1.5 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">

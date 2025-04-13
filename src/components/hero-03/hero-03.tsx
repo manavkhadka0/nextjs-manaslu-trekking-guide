@@ -16,7 +16,7 @@ const Hero03 = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/WhatsApp Image 2025-02-28 at 11.57.59 (2).jpeg"
+          src="/images/hero-image.jpeg"
           alt="Manaslu Trek Landscape"
           fill
           className="object-cover"
