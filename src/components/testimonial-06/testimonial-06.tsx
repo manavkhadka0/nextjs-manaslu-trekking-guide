@@ -175,17 +175,37 @@ const Testimonial06 = ({
                     loop: true,
                   }}
                 >
-                  <CarouselContent>
-                    {fallbackTestimonials
-                      .filter((t) => t.testimonialType === "text")
-                      .map((testimonial) => (
+                  <CarouselContent className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {textTestimonials.length > 0 ? (
+                      textTestimonials.map((testimonial) => (
                         <CarouselItem
                           key={testimonial._id}
-                          className="md:basis-1/1 lg:basis-1/2"
+                          className="md:basis-1/2 lg:basis-1/3"
                         >
                           <TestimonialCard testimonial={testimonial} />
                         </CarouselItem>
-                      ))}
+                      ))
+                    ) : (
+                      <CarouselItem className="md:basis-1/1 lg:basis-1/1">
+                        <div className="text-center py-12 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
+                          <QuoteIcon className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
+                          <h3 className="text-xl font-semibold mb-2">
+                            No Written Testimonials Yet
+                          </h3>
+                          <p className="text-muted-foreground max-w-md mx-auto mb-6">
+                            We&apos;re collecting written reviews from our
+                            trekkers. Check back soon or be the first to share
+                            your experience!
+                          </p>
+                          <Button asChild>
+                            <Link href="/share-testimonial">
+                              Share Your Experience{" "}
+                              <ArrowRightIcon className="ml-2 h-4 w-4" />
+                            </Link>
+                          </Button>
+                        </div>
+                      </CarouselItem>
+                    )}
                   </CarouselContent>
                   <div className="flex items-center justify-center gap-2 mt-8">
                     <CarouselPrevious className="static transform-none mx-2" />
@@ -464,12 +484,12 @@ const Testimonial06 = ({
                   loop: true,
                 }}
               >
-                <CarouselContent>
+                <CarouselContent className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {textTestimonials.length > 0 ? (
                     textTestimonials.map((testimonial) => (
                       <CarouselItem
                         key={testimonial._id}
-                        className="md:basis-1/1 lg:basis-1/2"
+                        className="md:basis-1/2 lg:basis-1/3"
                       >
                         <TestimonialCard testimonial={testimonial} />
                       </CarouselItem>
@@ -621,24 +641,24 @@ const Testimonial06 = ({
 };
 
 const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
-  // Get the appropriate image source - use image if available, otherwise use src
+  const [isOpen, setIsOpen] = useState(false);
   const profileImage = testimonial.image || testimonial.src;
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 shadow-lg h-full flex flex-col relative overflow-hidden group">
-      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-      <div className="relative z-10">
-        <div className="flex justify-between items-start mb-6">
-          <div className="flex items-center gap-4">
+    <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+      <div className="flex flex-col gap-4 h-full">
+        {/* Header with profile and rating */}
+        <div className="flex items-start justify-between">
+          <div className="flex items-center gap-3">
             <Avatar className="h-12 w-12 border-2 border-primary/20">
               {profileImage ? (
                 <AvatarImage
                   src={urlFor(profileImage).width(200).height(200).url()}
                   alt={testimonial.name}
+                  className="object-cover"
                 />
               ) : (
-                <AvatarFallback>
+                <AvatarFallback className="bg-primary/10 text-primary">
                   {testimonial.name
                     .split(" ")
                     .map((n) => n[0])
@@ -649,8 +669,8 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
               )}
             </Avatar>
             <div>
-              <p className="font-semibold">{testimonial.name}</p>
-              <div className="flex items-center text-xs text-muted-foreground gap-2">
+              <p className="font-semibold text-base">{testimonial.name}</p>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 {testimonial.location && (
                   <span className="flex items-center">
                     <MapPinIcon className="h-3 w-3 mr-1" />
@@ -666,7 +686,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
               </div>
             </div>
           </div>
-          <div className="flex">
+          <div className="flex items-center gap-1">
             {Array.from({ length: 5 }).map((_, i) => (
               <StarIcon
                 key={i}
@@ -681,15 +701,95 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
           </div>
         </div>
 
-        <div className="relative">
+        {/* Quote content with truncation */}
+        <div className="relative flex-grow">
           <QuoteIcon className="absolute -top-2 -left-1 h-6 w-6 text-primary/20" />
-          <p className="pt-2 text-base leading-relaxed line-clamp-4">
+          <p className="pt-2 text-base leading-relaxed line-clamp-3 text-muted-foreground">
             {testimonial.quote}
           </p>
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogTrigger asChild>
+              <Button
+                variant="link"
+                className="text-primary hover:text-primary/80 mt-2 p-0 h-auto"
+              >
+                See More
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[600px]">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Avatar className="h-12 w-12 border-2 border-primary/20">
+                    {profileImage ? (
+                      <AvatarImage
+                        src={urlFor(profileImage).width(200).height(200).url()}
+                        alt={testimonial.name}
+                        className="object-cover"
+                      />
+                    ) : (
+                      <AvatarFallback className="bg-primary/10 text-primary">
+                        {testimonial.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .toUpperCase()
+                          .substring(0, 2)}
+                      </AvatarFallback>
+                    )}
+                  </Avatar>
+                  <div>
+                    <p className="font-semibold text-base">
+                      {testimonial.name}
+                    </p>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      {testimonial.location && (
+                        <span className="flex items-center">
+                          <MapPinIcon className="h-3 w-3 mr-1" />
+                          {testimonial.location}
+                        </span>
+                      )}
+                      {testimonial.verified && (
+                        <span className="flex items-center text-emerald-500">
+                          <CheckCircleIcon className="h-3 w-3 mr-1" />
+                          Verified
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="relative">
+                  <QuoteIcon className="absolute -top-2 -left-1 h-6 w-6 text-primary/20" />
+                  <p className="pt-2 text-base leading-relaxed text-muted-foreground">
+                    {testimonial.quote}
+                  </p>
+                </div>
+                {testimonial.trekRoute && (
+                  <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">
+                      {testimonial.trekRoute}
+                    </span>
+                    {testimonial.trekDate && (
+                      <span className="text-sm text-muted-foreground flex items-center">
+                        <CalendarIcon className="h-3.5 w-3.5 mr-1.5" />
+                        {new Date(testimonial.trekDate).toLocaleDateString(
+                          "en-US",
+                          {
+                            month: "short",
+                            year: "numeric",
+                          }
+                        )}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
 
+        {/* Footer with trek details */}
         {testimonial.trekRoute && (
-          <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+          <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
             <span className="text-sm text-muted-foreground">
               {testimonial.trekRoute}
             </span>
@@ -718,25 +818,23 @@ const VideoTestimonialCard = ({
   const videoUrl = testimonial.videoUrl
     ? getVideoEmbedUrl(testimonial.videoUrl)
     : "";
-
-  // Get the appropriate image source - use image if available, otherwise use src
   const profileImage = testimonial.image || testimonial.src;
 
   return (
-    <div className="h-full bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 shadow-lg relative overflow-hidden group">
-      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-      <div className="relative z-10">
-        <div className="flex justify-between items-start mb-6">
-          <div className="flex items-center gap-4">
+    <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300">
+      <div className="flex flex-col gap-4">
+        {/* Header with profile and rating */}
+        <div className="flex items-start justify-between">
+          <div className="flex items-center gap-3">
             <Avatar className="h-12 w-12 border-2 border-primary/20">
               {profileImage ? (
                 <AvatarImage
                   src={urlFor(profileImage).width(200).height(200).url()}
                   alt={testimonial.name}
+                  className="object-cover"
                 />
               ) : (
-                <AvatarFallback>
+                <AvatarFallback className="bg-primary/10 text-primary">
                   {testimonial.name
                     .split(" ")
                     .map((n) => n[0])
@@ -747,8 +845,8 @@ const VideoTestimonialCard = ({
               )}
             </Avatar>
             <div>
-              <p className="font-semibold">{testimonial.name}</p>
-              <div className="flex items-center text-xs text-muted-foreground gap-2">
+              <p className="font-semibold text-base">{testimonial.name}</p>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 {testimonial.location && (
                   <span className="flex items-center">
                     <MapPinIcon className="h-3 w-3 mr-1" />
@@ -764,7 +862,7 @@ const VideoTestimonialCard = ({
               </div>
             </div>
           </div>
-          <div className="flex">
+          <div className="flex items-center gap-1">
             {Array.from({ length: 5 }).map((_, i) => (
               <StarIcon
                 key={i}
@@ -779,22 +877,23 @@ const VideoTestimonialCard = ({
           </div>
         </div>
 
+        {/* Video thumbnail */}
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
-            <div className="relative rounded-xl overflow-hidden cursor-pointer group/video">
+            <div className="relative rounded-xl overflow-hidden cursor-pointer group">
               <div className="aspect-video bg-black/20 flex items-center justify-center">
                 {testimonial.videoThumbnail ? (
                   <Image
                     src={urlFor(testimonial.videoThumbnail).url()}
                     alt={`${testimonial.name}'s video testimonial`}
                     fill
-                    className="object-cover opacity-80 group-hover/video:opacity-100 transition-opacity"
+                    className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-primary/20 to-blue-500/20 flex items-center justify-center" />
                 )}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="h-16 w-16 rounded-full bg-primary/90 text-white flex items-center justify-center group-hover/video:scale-110 transition-transform">
+                  <div className="h-16 w-16 rounded-full bg-primary/90 text-white flex items-center justify-center group-hover:scale-110 transition-transform">
                     <PlayCircleIcon className="h-10 w-10" />
                   </div>
                 </div>
@@ -830,12 +929,14 @@ const VideoTestimonialCard = ({
           </DialogContent>
         </Dialog>
 
-        <div className="mt-4">
-          <p className="text-base line-clamp-2 font-medium">
+        {/* Quote content */}
+        <div className="mt-2">
+          <p className="text-base line-clamp-2 text-muted-foreground">
             {testimonial.quote}
           </p>
         </div>
 
+        {/* Footer with trek details */}
         {testimonial.trekRoute && (
           <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
             <span className="text-sm text-muted-foreground">
@@ -856,79 +957,5 @@ const VideoTestimonialCard = ({
     </div>
   );
 };
-
-// Fallback testimonials in case no data is provided
-const fallbackTestimonials: Testimonial[] = [
-  {
-    _id: "1",
-    name: "Sarah Johnson",
-    quote:
-      "The Manaslu Circuit was the adventure of a lifetime. Our guide's knowledge of the region, culture, and wildlife made this trek truly special. The team's attention to safety and comfort exceeded all expectations.",
-    rating: 5,
-    designation: "Adventure Enthusiast",
-    location: "United States",
-    trekRoute: "Manaslu Circuit",
-    trekDate: "2022-10-15",
-    featured: true,
-    testimonialType: "text",
-    verified: true,
-    src: {
-      asset: {
-        _ref: "image-47af23fa6028b3ba011fe07c80de23ed44d8519c-1280x960-jpg",
-      },
-    },
-    status: "published",
-    submissionDate: "2022-11-10T00:00:00Z",
-  },
-  {
-    _id: "2",
-    name: "Michael Chen",
-    quote:
-      "As an experienced trekker, I was impressed by the professionalism of the guides and the well-planned itinerary. The views of Manaslu were breathtaking, and the cultural experiences in the villages along the way were authentic and memorable.",
-    rating: 5,
-    designation: "Photographer",
-    location: "Canada",
-    trekRoute: "Manaslu Circuit with Tsum Valley",
-    trekDate: "2023-04-20",
-    featured: false,
-    testimonialType: "text",
-    verified: true,
-    status: "published",
-    submissionDate: "2023-05-15T00:00:00Z",
-  },
-  {
-    _id: "3",
-    name: "Emma Rodriguez",
-    quote:
-      "I can't recommend this trek enough! The Manaslu Circuit offered stunning views, cultural immersion, and the perfect balance of challenge and comfort. Our guide was knowledgeable, patient, and made the experience unforgettable.",
-    rating: 5,
-    designation: "Travel Blogger",
-    location: "Spain",
-    trekRoute: "Manaslu Circuit",
-    trekDate: "2023-09-05",
-    featured: true,
-    testimonialType: "video",
-    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    verified: true,
-    status: "published",
-    submissionDate: "2023-10-12T00:00:00Z",
-  },
-  {
-    _id: "4",
-    name: "David Müller",
-    quote:
-      "The Tsum Valley extension was the highlight of our trek. The ancient monasteries and the warm hospitality of the local people made this a cultural experience as much as a trekking adventure. Highly recommended!",
-    rating: 5,
-    designation: "Engineer",
-    location: "Germany",
-    trekRoute: "Manaslu Circuit with Tsum Valley",
-    trekDate: "2022-11-10",
-    featured: false,
-    testimonialType: "text",
-    verified: true,
-    status: "published",
-    submissionDate: "2022-12-05T00:00:00Z",
-  },
-];
 
 export default Testimonial06;

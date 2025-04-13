@@ -410,7 +410,7 @@ export default async function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <Stats02Page testimonials={featuredTestimonials} />
+      <Stats02Page />
 
       {/* Testimonials Section */}
       <Testimonial06 testimonials={featuredTestimonials} />
