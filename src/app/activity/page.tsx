@@ -20,6 +20,8 @@ export const metadata: Metadata = {
     "Explore our range of trekking activities, tours, and expeditions in the Himalayas. Find the perfect adventure for your next trip to Nepal.",
 };
 
+export const revalidate = 10;
+
 export default async function ActivityPage() {
   const activities = await getAllActivities();
 
