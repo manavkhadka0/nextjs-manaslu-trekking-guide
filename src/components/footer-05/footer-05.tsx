@@ -25,8 +25,8 @@ const footerLinks = [
     href: "/",
   },
   {
-    title: "Manaslu Trek",
-    href: "/manaslu-trek",
+    title: "Activities",
+    href: "/activity",
   },
   {
     title: "About Us",
@@ -47,38 +47,6 @@ const resourceLinks = [
   {
     title: "FAQs",
     href: "/faqs",
-  },
-  {
-    title: "Booking",
-    href: "/booking",
-  },
-  {
-    title: "Privacy Policy",
-    href: "/privacy-policy",
-  },
-  {
-    title: "Terms & Conditions",
-    href: "/terms-conditions",
-  },
-];
-
-// Travel guide links
-const travelGuideLinks = [
-  {
-    title: "Best Trekking Season",
-    href: "/best-season-for-manaslu-trek",
-  },
-  {
-    title: "Gear Checklist",
-    href: "/manaslu-trek-gear-checklist",
-  },
-  {
-    title: "Permits & Visas",
-    href: "/manaslu-trek-permits",
-  },
-  {
-    title: "Safety Information",
-    href: "/manaslu-trek-safety",
   },
 ];
 
@@ -188,18 +156,6 @@ const Footer05Page = () => {
                   </li>
                 ))}
               </ul>
-
-              <h3 className="text-lg font-bold mb-6 mt-8 text-white flex items-center">
-                <span className="h-px w-6 bg-primary mr-3"></span>
-                TRAVEL GUIDES
-              </h3>
-              <ul className="space-y-3">
-                {travelGuideLinks.map(({ title, href }) => (
-                  <li key={title}>
-                    <FooterLink href={href}>{title}</FooterLink>
-                  </li>
-                ))}
-              </ul>
             </div>
 
             {/* Contact Info */}
@@ -216,19 +172,19 @@ const Footer05Page = () => {
                 <div className="flex items-center gap-3">
                   <MailIcon className="flex-shrink-0 h-5 w-5 text-primary" />
                   <a
-                    href="mailto:info@manaslutrekking.com"
+                    href="mailto:adhikarisamrat4545@gmail.com"
                     className="hover:text-white transition-colors duration-200"
                   >
-                    info@manaslutrekking.com
+                    adhikarisamrat4545@gmail.com
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
                   <PhoneIcon className="flex-shrink-0 h-5 w-5 text-primary" />
                   <a
-                    href="tel:+9779812345678"
+                    href="tel:+9779848740081"
                     className="hover:text-white transition-colors duration-200"
                   >
-                    +977 9812345678
+                    +977 9848740081
                   </a>
                 </div>
                 <div className="mt-6 p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
@@ -236,16 +192,7 @@ const Footer05Page = () => {
                     Emergency Contact
                   </p>
                   <p className="text-sm text-gray-300">
-                    24/7 Support: +977 9801234567
-                  </p>
-                </div>
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <p className="text-sm text-gray-400">License No: 1234/067</p>
-                  <p className="text-sm text-gray-400">
-                    Regd. No: 56789/066/067
-                  </p>
-                  <p className="text-sm text-gray-400">
-                    (Manaslu Trekking Guide Pvt. Ltd)
+                    24/7 Support: +977 9848740081
                   </p>
                 </div>
               </div>
