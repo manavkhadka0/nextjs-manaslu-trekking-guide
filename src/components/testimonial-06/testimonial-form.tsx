@@ -53,6 +53,9 @@ const formSchema = z.object({
   acceptTerms: z.boolean().refine((val) => val === true, {
     message: "You must accept the terms and conditions",
   }),
+  status: z.enum(["published", "review", "rejected"]).default("review"),
+  verified: z.boolean().default(false),
+  submissionDate: z.string().default(new Date().toISOString()),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -74,6 +77,9 @@ export default function TestimonialForm() {
       testimonialType: "text",
       videoUrl: "",
       acceptTerms: false,
+      status: "review",
+      verified: false,
+      submissionDate: new Date().toISOString(),
     },
   });
 

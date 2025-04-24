@@ -14,10 +14,13 @@ const testimonialSubmissionSchema = z.object({
   trekRoute: z.string().optional(),
   trekDate: z.string().optional(),
   testimonialType: z.enum(["text", "video"]),
-  videoUrl: z.string().url().optional(),
+  videoUrl: z.string().url().optional().or(z.literal("")),
   acceptTerms: z.boolean().refine((val) => val === true, {
     message: "You must accept the terms and conditions",
   }),
+  status: z.enum(["published", "review", "rejected"]).default("review"),
+  verified: z.boolean().default(false),
+  submissionDate: z.string().default(new Date().toISOString()),
 });
 
 export type TestimonialSubmission = z.infer<typeof testimonialSubmissionSchema>;
@@ -39,9 +42,9 @@ export async function submitTestimonial(data: TestimonialSubmission) {
       trekDate: validatedData.trekDate || "",
       testimonialType: validatedData.testimonialType,
       videoUrl: validatedData.videoUrl || "",
-      verified: false, // User-submitted testimonials are not verified by default
-      status: "review", // Set status to review for admin approval
-      submissionDate: new Date().toISOString(),
+      verified: validatedData.verified,
+      status: validatedData.status,
+      submissionDate: validatedData.submissionDate,
     });
 
     return { success: true, data: result };

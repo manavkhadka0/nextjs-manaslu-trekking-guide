@@ -27,6 +27,7 @@ const ContactForm = ({ className = "" }: ContactFormProps) => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
@@ -38,6 +39,8 @@ const ContactForm = ({ className = "" }: ContactFormProps) => {
       acceptTerms: false,
     },
   });
+
+  const acceptTermsValue = watch("acceptTerms");
 
   const onSubmit = async (data: ContactFormValues) => {
     try {
@@ -176,7 +179,13 @@ const ContactForm = ({ className = "" }: ContactFormProps) => {
             <div className="col-span-2 flex items-start gap-2">
               <Checkbox
                 id="acceptTerms"
-                {...register("acceptTerms")}
+                checked={acceptTermsValue}
+                onCheckedChange={(checked) => {
+                  register("acceptTerms").onChange({
+                    target: { name: "acceptTerms", value: checked },
+                    type: "change",
+                  });
+                }}
                 className={cn(
                   "border-gray-400 data-[state=checked]:bg-primary data-[state=checked]:border-primary",
                   errors.acceptTerms ? "border-destructive" : ""
