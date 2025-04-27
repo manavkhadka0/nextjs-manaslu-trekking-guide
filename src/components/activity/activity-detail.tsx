@@ -238,7 +238,7 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
                 </div>
 
                 {/* Trek Map */}
-                {activity.trek_map && (
+                {activity.trek_map && activity.trek_map.url && (
                   <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
                     <h2 className="text-2xl font-bold mb-4 flex items-center">
                       <Map className="h-6 w-6 mr-2 text-primary" />
@@ -259,7 +259,7 @@ export default function ActivityDetail({ activity }: ActivityDetailProps) {
                 )}
 
                 {/* Additional Information */}
-                <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+                <div className=" mb-8">
                   <h2 className="text-2xl font-bold mb-4">
                     Additional Information
                   </h2>

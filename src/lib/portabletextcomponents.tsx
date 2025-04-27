@@ -90,22 +90,36 @@ export const portableTextComponents: Partial<PortableTextReactComponents> = {
   list: {
     // Bullet list
     bullet: ({ children }) => {
-      return <ul className="mb-6 ml-6 list-disc space-y-2">{children}</ul>;
+      return (
+        <ul
+          style={{ listStyleType: "disc" }}
+          className="mb-8 ml-8 space-y-4 text-gray-700 marker:text-primary/70"
+        >
+          {children}
+        </ul>
+      );
     },
     // Numbered list
     number: ({ children }) => {
-      return <ol className="mb-6 ml-6 list-decimal space-y-2">{children}</ol>;
+      return (
+        <ol
+          style={{ listStyleType: "decimal" }}
+          className="mb-8 ml-8 space-y-4 text-gray-700 marker:text-primary/70 marker:font-medium"
+        >
+          {children}
+        </ol>
+      );
     },
   },
   // List items
   listItem: {
     // Bullet list item
     bullet: ({ children }) => {
-      return <li className="text-gray-700">{children}</li>;
+      return <li className="leading-relaxed pl-2">{children}</li>;
     },
     // Numbered list item
     number: ({ children }) => {
-      return <li className="text-gray-700">{children}</li>;
+      return <li className="leading-relaxed pl-2">{children}</li>;
     },
   },
   // Marks (inline formatting)

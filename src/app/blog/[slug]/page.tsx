@@ -74,7 +74,7 @@ export default async function PostPage({
   return (
     <main className="bg-gray-50/50">
       {/* Hero Section */}
-      <section className="relative w-full bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      <section className="relative pt-16 w-full bg-gradient-to-b from-gray-900 to-gray-800 text-white">
         <div className="absolute inset-0 opacity-40">
           {post.mainImage && (
             <Image
@@ -198,7 +198,7 @@ export default async function PostPage({
             </div>
 
             {/* Article Content */}
-            <div className="rounded-xl bg-white p-6 shadow-sm md:p-10">
+            <div className=" ">
               <article className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-gray-900 prose-headings:scroll-mt-24 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-blockquote:border-l-primary/70 prose-blockquote:bg-primary/5 prose-blockquote:p-4 prose-blockquote:not-italic prose-blockquote:text-gray-700 prose-strong:font-bold prose-em:italic prose-ol:ml-6 prose-ol:list-decimal prose-ol:text-gray-700 prose-ul:ml-6 prose-ul:list-disc prose-ul:text-gray-700 prose-li:my-2 prose-img:rounded-lg prose-img:shadow-sm">
                 <PortableText
                   value={post.body}
