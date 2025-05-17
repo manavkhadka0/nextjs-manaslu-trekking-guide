@@ -75,12 +75,18 @@ const TrekHighlightCard = ({
       className={`bg-background/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg group ${className}`}
     >
       <div className="relative aspect-video">
-        <Image
-          src={urlFor(highlight.thumbnail).url()}
-          alt={highlight.title}
-          fill
-          className="object-cover transition-transform group-hover:scale-105 duration-500"
-        />
+        {highlight.thumbnail && highlight.thumbnail.asset ? (
+          <Image
+            src={urlFor(highlight.thumbnail).url()}
+            alt={highlight.title}
+            fill
+            className="object-cover transition-transform group-hover:scale-105 duration-500"
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+            <span className="text-gray-500">No Image</span>
+          </div>
+        )}
         <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTitle hidden>{highlight.title}</DialogTitle>
