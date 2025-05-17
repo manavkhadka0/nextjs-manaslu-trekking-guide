@@ -28,7 +28,7 @@ export default async function MediaPage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/WhatsApp Image 2025-02-28 at 11.57.58 (1).jpeg"
+            src="/images/trek-highlights.jpeg"
             alt="Manaslu Trek Media Gallery"
             fill
             priority

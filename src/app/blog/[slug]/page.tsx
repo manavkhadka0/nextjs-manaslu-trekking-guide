@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { PortableText, PortableTextReactComponents } from "next-sanity";
+import { PortableText } from "next-sanity";
 import {
   CalendarIcon,
   ClockIcon,

@@ -2,7 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   PlayCircleIcon,
   XIcon,
@@ -78,6 +83,7 @@ const TrekHighlightCard = ({
         />
         <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
           <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogTitle hidden>{highlight.title}</DialogTitle>
             <DialogTrigger asChild>
               <button className="h-16 w-16 rounded-full bg-primary/90 text-white flex items-center justify-center hover:bg-primary transition-colors">
                 {isPhotoGallery ? (

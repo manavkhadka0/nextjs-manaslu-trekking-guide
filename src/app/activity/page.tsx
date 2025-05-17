@@ -31,7 +31,7 @@ export default async function ActivityPage() {
       <section className="relative py-24 md:py-32 bg-gradient-to-b from-gray-900 to-gray-800 text-white">
         <div className="absolute inset-0 overflow-hidden opacity-20">
           <Image
-            src="/images/WhatsApp Image 2025-02-28 at 11.57.58 (1).jpeg"
+            src="/images/trek-highlights.jpeg"
             alt="Himalayan Mountains"
             fill
             className="object-cover"

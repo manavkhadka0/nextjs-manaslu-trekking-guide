@@ -260,14 +260,3 @@ export const getAllCategories = async (): Promise<Category[]> => {
   const categories = await client.fetch(query, {}, options);
   return categories;
 };
-
-export const getAllTags = async (): Promise<Tag[]> => {
-  const query = `*[_type == "tag"] | order(name asc) {
-    _id,
-    name,
-    "slug": slug.current,
-    description
-  }`;
-  const tags = await client.fetch(query, {}, options);
-  return tags;
-};

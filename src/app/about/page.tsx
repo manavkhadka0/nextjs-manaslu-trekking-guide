@@ -385,7 +385,7 @@ export default async function AboutPage() {
               <div className="flex items-center gap-4 mb-6">
                 <div className="h-16 w-16 rounded-full bg-gray-200 overflow-hidden">
                   <Image
-                    src="/images/WhatsApp Image 2025-02-28 at 11.57.58 (1).jpeg"
+                    src="/images/trek-highlights.jpeg"
                     alt="Emily Thompson"
                     width={64}
                     height={64}
@@ -422,7 +422,7 @@ export default async function AboutPage() {
               <div className="flex items-center gap-4 mb-6">
                 <div className="h-16 w-16 rounded-full bg-gray-200 overflow-hidden">
                   <Image
-                    src="/images/WhatsApp Image 2025-02-28 at 11.57.58 (1).jpeg"
+                    src="/images/trek-highlights.jpeg"
                     alt="David Müller"
                     width={64}
                     height={64}

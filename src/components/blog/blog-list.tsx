@@ -44,16 +44,12 @@ interface BlogListProps {
 
 export default function BlogList({
   posts,
-  categories = [],
-  tags = [],
   currentCategory,
   currentTag,
   currentPage,
   totalPages,
   totalPosts,
   searchParams,
-  showCategoryFilter = true,
-  showTagFilter = true,
   pageType = "main",
 }: BlogListProps) {
   const router = useRouter();
@@ -88,55 +84,7 @@ export default function BlogList({
               )}
             </h2>
           </div>
-
-          {/* Mobile filters button */}
-          <div className="flex flex-wrap gap-2 md:hidden">
-            {showCategoryFilter && categories.length > 0 && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex items-center gap-1"
-                  >
-                    <FolderIcon className="h-4 w-4" />
-                    Categories
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  {categories.map((category) => (
-                    <DropdownMenuItem key={category._id} asChild>
-                      <Link href={`/blog/category/${category.slug}`}>
-                        {category.name}
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-
-            {showTagFilter && tags.length > 0 && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex items-center gap-1"
-                  >
-                    <TagIcon className="h-4 w-4" />
-                    Tags
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  {tags.map((tag) => (
-                    <DropdownMenuItem key={tag._id} asChild>
-                      <Link href={`/blog/tag/${tag.slug}`}>{tag.name}</Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-          </div>
+          \
         </div>
 
         {/* Active search filter */}
@@ -199,63 +147,6 @@ export default function BlogList({
               searchParams={urlSearchParams}
             />
           )}
-        </div>
-
-        {/* Sidebar - Right Column */}
-        <div className="md:w-1/3">
-          <div className="bg-white rounded-lg shadow-sm p-6 sticky top-24">
-            {/* Categories */}
-            {showCategoryFilter && categories.length > 0 && (
-              <div id="categories" className="mb-8">
-                <h3 className="text-lg font-semibold mb-4 flex items-center border-b pb-2">
-                  <FolderIcon className="h-4 w-4 mr-2 text-primary" />
-                  Categories
-                </h3>
-                <div className="flex flex-col gap-2">
-                  {categories.map((category) => (
-                    <Link
-                      key={category._id}
-                      href={`/blog/category/${category.slug}`}
-                      className={cn(
-                        "px-3 py-2 rounded-md text-sm transition-colors flex items-center",
-                        currentCategory?.slug === category.slug
-                          ? "bg-primary/10 text-primary font-medium"
-                          : "hover:bg-gray-100"
-                      )}
-                    >
-                      <span>{category.name}</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Tags */}
-            {showTagFilter && tags.length > 0 && (
-              <div>
-                <h3 className="text-lg font-semibold mb-4 flex items-center border-b pb-2">
-                  <TagIcon className="h-4 w-4 mr-2 text-primary" />
-                  Tags
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((tag) => (
-                    <Link
-                      key={tag._id}
-                      href={`/blog/tag/${tag.slug}`}
-                      className={cn(
-                        "inline-flex items-center px-3 py-1 rounded-full text-sm transition-colors",
-                        currentTag?.slug === tag.slug
-                          ? "bg-primary text-white hover:bg-primary/90"
-                          : "bg-gray-100 text-gray-800 hover:bg-gray-200"
-                      )}
-                    >
-                      {tag.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </div>

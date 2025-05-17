@@ -171,7 +171,7 @@ export default function FAQLayout({
             <div className="md:w-1/2 flex justify-end">
               <div className="relative w-full max-w-xs aspect-square rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/WhatsApp Image 2025-02-28 at 11.57.58 (1).jpeg"
+                  src="/images/trek-highlights.jpeg"
                   alt="Contact our team"
                   fill
                   className="object-cover"

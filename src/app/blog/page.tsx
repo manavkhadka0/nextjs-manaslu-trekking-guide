@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import BlogPageClient from "@/components/blog/blog-page-client";
-import { getAllPosts, getAllCategories, getAllTags } from "@/lib/api/blog";
+import { getAllPosts, getAllCategories } from "@/lib/api/blog";
 
 export const metadata: Metadata = {
   title: "Blog | Samrat Adhikari - Manaslu Trek Guide",
@@ -32,18 +32,15 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     tag: searchParamsObj.tag,
   });
   const categories = await getAllCategories();
-  const tags = await getAllTags();
 
   // Serialize the data to ensure it's safe to pass to client components
   const serializedPosts = JSON.parse(JSON.stringify(posts));
   const serializedCategories = JSON.parse(JSON.stringify(categories));
-  const serializedTags = JSON.parse(JSON.stringify(tags));
 
   return (
     <BlogPageClient
       initialPosts={serializedPosts}
       categories={serializedCategories}
-      tags={serializedTags}
       currentPage={page}
       totalPages={Math.ceil(total / limit)}
       totalPosts={total}

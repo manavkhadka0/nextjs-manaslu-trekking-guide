@@ -79,7 +79,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact-form" className="relative">
+      <section id="" className="relative">
         <Contact
           email={CONTACT_INFO.email}
           phone={CONTACT_INFO.phone}
@@ -93,7 +93,7 @@ export default function ContactPage() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
 
-        <div className="container mx-auto px-6 relative">
+        {/* <div className="container mx-auto px-6 relative">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Stay Connected</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -103,7 +103,7 @@ export default function ContactPage() {
           </div>
 
           <SocialCard />
-        </div>
+        </div> */}
       </section>
     </main>
   );

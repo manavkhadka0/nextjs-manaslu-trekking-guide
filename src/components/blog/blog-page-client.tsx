@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import BlogList from "@/components/blog/blog-list";
-import { PostList, Category, Tag } from "@/lib/api/blog";
+import { PostList, Category } from "@/lib/api/blog";
 import {
   Search as SearchIcon,
   X as XIcon,
@@ -19,7 +19,6 @@ import {
 interface BlogPageClientProps {
   initialPosts: PostList[];
   categories: Category[];
-  tags: Tag[];
   currentPage: number;
   totalPages: number;
   totalPosts: number;
@@ -34,7 +33,6 @@ interface BlogPageClientProps {
 export default function BlogPageClient({
   initialPosts,
   categories,
-  tags,
   currentPage,
   totalPages,
   totalPosts,
@@ -162,7 +160,6 @@ export default function BlogPageClient({
           <BlogList
             posts={initialPosts}
             categories={categories}
-            tags={tags}
             currentPage={currentPage}
             totalPages={totalPages}
             totalPosts={totalPosts}

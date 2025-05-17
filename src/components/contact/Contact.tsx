@@ -18,8 +18,8 @@ interface ContactProps {
 }
 
 const Contact = ({
-  email = "info@manaslu-trekking.com",
-  phone = "+977 9841234567",
+  email = "adhikarisamrat4545@gmail.com",
+  phone = "+977 9848740081",
   address = "Thamel, Kathmandu, Nepal",
   className = "",
 }: ContactProps) => {
@@ -191,6 +191,7 @@ const Contact = ({
 
           {/* Contact Form */}
           <div
+            id="contact-form"
             className={cn(
               "order-1 lg:order-2",
               isVisible ? "animate-fadeIn" : "opacity-0"
@@ -198,31 +199,6 @@ const Contact = ({
             style={{ animationDelay: "0.6s" }}
           >
             <ContactForm className="bg-transparent" />
-          </div>
-        </div>
-
-        {/* Map section */}
-        <div
-          className={cn(
-            "mt-16 rounded-2xl overflow-hidden border border-white/10 shadow-lg h-[400px] relative",
-            isVisible ? "animate-fadeIn" : "opacity-0"
-          )}
-          style={{ animationDelay: "0.8s" }}
-        >
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.2585023708073!2d85.30742561506156!3d27.71524798279364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18fcb77fd4f7%3A0x58099b8d37d04a6c!2sThamel%2C%20Kathmandu%2044600%2C%20Nepal!5e0!3m2!1sen!2sus!4v1625123456789!5m2!1sen!2sus"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Office Location"
-            className="grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
-          ></iframe>
-          <div className="absolute bottom-6 left-6 bg-background/80 backdrop-blur-sm p-4 rounded-lg shadow-lg max-w-xs">
-            <h3 className="font-semibold">Manaslu Trekking Guide</h3>
-            <p className="text-sm text-muted-foreground">{address}</p>
           </div>
         </div>
       </div>

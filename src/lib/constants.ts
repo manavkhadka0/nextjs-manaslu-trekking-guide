@@ -52,10 +52,9 @@ export const SOCIAL_LINKS: SocialLink[] = [
 ];
 
 export const CONTACT_INFO = {
-  email: "info@manaslu-trekking.com",
-  phone: "+977 9841234567",
+  email: "adhikarisamrat4545@gmail.com",
+  phone: "+977 9848740081",
   address: "Thamel, Kathmandu, Nepal",
-  website: "https://manaslu-trekking.com",
 };
 
 export const CONTACT_LINKS = [
@@ -76,11 +75,5 @@ export const CONTACT_LINKS = [
     value: CONTACT_INFO.address,
     url: "https://maps.google.com/?q=Thamel,Kathmandu,Nepal",
     icon: MapPin,
-  },
-  {
-    name: "Website",
-    value: CONTACT_INFO.website,
-    url: CONTACT_INFO.website,
-    icon: Globe,
   },
 ];
