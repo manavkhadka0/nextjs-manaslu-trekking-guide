@@ -16,6 +16,8 @@ export const metadata: Metadata = {
     "Explore videos and images from the Manaslu Circuit Trek. Get a glimpse of the breathtaking landscapes, cultural experiences, and adventures that await you.",
 };
 
+export const revalidate = 10;
+
 export default async function MediaPage() {
   // Fetch videos and photo galleries from Sanity
   const trekVideos = await getAllVideos();
