@@ -48,8 +48,6 @@ const formSchema = z.object({
   location: z.string().optional(),
   trekRoute: z.string().optional(),
   trekDate: z.date().optional(),
-  testimonialType: z.enum(["text", "video"]),
-  videoUrl: z.string().url().optional().or(z.literal("")),
   acceptTerms: z.boolean().refine((val) => val === true, {
     message: "You must accept the terms and conditions",
   }),
@@ -74,8 +72,6 @@ export default function TestimonialForm() {
       designation: "",
       location: "",
       trekRoute: "",
-      testimonialType: "text",
-      videoUrl: "",
       acceptTerms: false,
       status: "review",
       verified: false,
@@ -83,9 +79,9 @@ export default function TestimonialForm() {
     },
   });
 
-  const testimonialType = form.watch("testimonialType");
-
-  async function onSubmit(data: FormValues) {
+  async function onSubmit(
+    data: Omit<FormValues, "testimonialType" | "videoUrl">
+  ) {
     setIsSubmitting(true);
     try {
       const result = await submitTestimonial({
@@ -226,31 +222,12 @@ export default function TestimonialForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Trek Route</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select the trek route" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Manaslu Circuit">
-                        Manaslu Circuit
-                      </SelectItem>
-                      <SelectItem value="Manaslu Circuit with Tsum Valley">
-                        Manaslu Circuit with Tsum Valley
-                      </SelectItem>
-                      <SelectItem value="Tsum Valley Trek">
-                        Tsum Valley Trek
-                      </SelectItem>
-                      <SelectItem value="Manaslu Base Camp">
-                        Manaslu Base Camp
-                      </SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <FormControl>
+                    <Input
+                      placeholder="e.g. Manaslu Circuit, Tsum Valley, etc."
+                      {...field}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -333,98 +310,21 @@ export default function TestimonialForm() {
 
           <FormField
             control={form.control}
-            name="testimonialType"
+            name="quote"
             render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel>Testimonial Type</FormLabel>
+              <FormItem>
+                <FormLabel>Your Testimonial</FormLabel>
                 <FormControl>
-                  <RadioGroup
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    className="flex flex-col space-y-1"
-                  >
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="text" />
-                      </FormControl>
-                      <FormLabel className="font-normal">
-                        Written Testimonial
-                      </FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="video" />
-                      </FormControl>
-                      <FormLabel className="font-normal">
-                        Video Testimonial (YouTube or Vimeo link)
-                      </FormLabel>
-                    </FormItem>
-                  </RadioGroup>
+                  <Textarea
+                    placeholder="Share your experience with us..."
+                    className="min-h-[150px]"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
-          {testimonialType === "text" ? (
-            <FormField
-              control={form.control}
-              name="quote"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Your Testimonial</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Share your experience with us..."
-                      className="min-h-[150px]"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ) : (
-            <>
-              <FormField
-                control={form.control}
-                name="videoUrl"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Video URL</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="https://www.youtube.com/watch?v=..."
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      Please provide a YouTube or Vimeo link to your video
-                      testimonial.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="quote"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Brief Description</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Please provide a brief description of your video..."
-                        className="min-h-[100px]"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </>
-          )}
 
           <FormField
             control={form.control}

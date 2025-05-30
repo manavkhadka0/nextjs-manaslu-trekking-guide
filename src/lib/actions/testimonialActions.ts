@@ -2,6 +2,10 @@
 
 import { z } from "zod";
 import { client } from "@/sanity/client";
+import { resend } from "../resend";
+import { TestimonialAdminEmail } from "../../emails/TestimonialAdminEmail";
+import { TestimonialThankYouEmail } from "../../emails/TestimonialThankYouEmail";
+import React from "react";
 
 // Define the testimonial submission schema
 const testimonialSubmissionSchema = z.object({
@@ -13,8 +17,6 @@ const testimonialSubmissionSchema = z.object({
   location: z.string().optional(),
   trekRoute: z.string().optional(),
   trekDate: z.string().optional(),
-  testimonialType: z.enum(["text", "video"]),
-  videoUrl: z.string().url().optional().or(z.literal("")),
   acceptTerms: z.boolean().refine((val) => val === true, {
     message: "You must accept the terms and conditions",
   }),
@@ -40,11 +42,26 @@ export async function submitTestimonial(data: TestimonialSubmission) {
       location: validatedData.location || "",
       trekRoute: validatedData.trekRoute || "",
       trekDate: validatedData.trekDate || "",
-      testimonialType: validatedData.testimonialType,
-      videoUrl: validatedData.videoUrl || "",
+      testimonialType: "text",
       verified: validatedData.verified,
       status: validatedData.status,
       submissionDate: validatedData.submissionDate,
+    });
+
+    // Send email to admin
+    await resend.emails.send({
+      from: "Manaslu Trekking Guide <info@manaslutrekguide.com>",
+      to: ["adhikarisamrat4545@gmail.com"],
+      subject: `New Testimonial from ${validatedData.name}`,
+      react: TestimonialAdminEmail(validatedData),
+    });
+
+    // Send thank-you email to user
+    await resend.emails.send({
+      from: "Manaslu Trekking Guide <info@manaslutrekguide.com>",
+      to: [validatedData.email],
+      subject: "Thank you for your testimonial!",
+      react: TestimonialThankYouEmail(validatedData),
     });
 
     return { success: true, data: result };

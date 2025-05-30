@@ -44,7 +44,6 @@ const Testimonial06 = ({
   const [videoCurrent, setVideoCurrent] = useState(0);
   const [count, setCount] = useState(0);
   const [videoCount, setVideoCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   // Filter testimonials by type
@@ -59,26 +58,6 @@ const Testimonial06 = ({
       : testimonials.filter(
           (testimonial) => testimonial.testimonialType === "video"
         );
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      if (sectionRef.current) {
-        const sectionPosition = sectionRef.current.offsetTop;
-        if (scrollPosition > sectionPosition - window.innerHeight / 1.5) {
-          setIsVisible(true);
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    // Trigger once on mount to check if already in view
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     if (!api) return;
@@ -129,16 +108,7 @@ const Testimonial06 = ({
 
         <div className="container mx-auto px-6 relative">
           {/* Section header */}
-          <div
-            className={cn(
-              "text-center mb-16 max-w-3xl mx-auto",
-              isVisible ? "animate-fadeIn" : "opacity-0"
-            )}
-            style={{
-              animationDelay: "0.1s",
-              animationFillMode: "forwards",
-            }}
-          >
+          <div className={cn("text-center mb-16 max-w-3xl mx-auto")}>
             <div className="inline-flex items-center justify-center px-4 py-1.5 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">
               <QuoteIcon className="h-4 w-4 mr-1.5" />
               <span>Trekker Experiences</span>
@@ -154,13 +124,7 @@ const Testimonial06 = ({
           </div>
 
           {/* Testimonial Tabs */}
-          <div
-            className={cn("mb-16", isVisible ? "animate-fadeIn" : "opacity-0")}
-            style={{
-              animationDelay: "0.3s",
-              animationFillMode: "forwards",
-            }}
-          >
+          <div className={cn("mb-16")}>
             <Tabs defaultValue="text" className="w-full">
               <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
                 <TabsTrigger value="text">Written Reviews</TabsTrigger>
@@ -297,13 +261,8 @@ const Testimonial06 = ({
           {testimonials.length > 0 && (
             <div
               className={cn(
-                "mt-16 bg-gradient-to-br from-primary/5 to-blue-500/5 rounded-2xl p-10 border border-primary/10 relative overflow-hidden",
-                isVisible ? "animate-fadeIn" : "opacity-0"
+                "mt-16 bg-gradient-to-br from-primary/5 to-blue-500/5 rounded-2xl p-10 border border-primary/10 relative overflow-hidden"
               )}
-              style={{
-                animationDelay: "0.5s",
-                animationFillMode: "forwards",
-              }}
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
 
@@ -375,17 +334,7 @@ const Testimonial06 = ({
           )}
 
           {/* Share Your Story Section */}
-          <div
-            id="share-testimonial"
-            className={cn(
-              "mt-16 text-center",
-              isVisible ? "animate-fadeIn" : "opacity-0"
-            )}
-            style={{
-              animationDelay: "0.7s",
-              animationFillMode: "forwards",
-            }}
-          >
+          <div id="share-testimonial" className={cn("mt-16 text-center")}>
             <h3 className="text-2xl font-bold mb-6">
               Share Your Manaslu Experience
             </h3>
@@ -438,16 +387,7 @@ const Testimonial06 = ({
 
       <div className="container mx-auto px-6 relative">
         {/* Section header */}
-        <div
-          className={cn(
-            "text-center mb-16 max-w-3xl mx-auto",
-            isVisible ? "animate-fadeIn" : "opacity-0"
-          )}
-          style={{
-            animationDelay: "0.1s",
-            animationFillMode: "forwards",
-          }}
-        >
+        <div className={cn("text-center mb-16 max-w-3xl mx-auto")}>
           <div className="inline-flex items-center justify-center px-4 py-1.5 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">
             <QuoteIcon className="h-4 w-4 mr-1.5" />
             <span>Trekker Experiences</span>
@@ -463,13 +403,7 @@ const Testimonial06 = ({
         </div>
 
         {/* Testimonial Tabs */}
-        <div
-          className={cn("mb-16", isVisible ? "animate-fadeIn" : "opacity-0")}
-          style={{
-            animationDelay: "0.3s",
-            animationFillMode: "forwards",
-          }}
-        >
+        <div className={cn("mb-16")}>
           <Tabs defaultValue="text" className="w-full">
             <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
               <TabsTrigger value="text">Written Reviews</TabsTrigger>
@@ -602,17 +536,7 @@ const Testimonial06 = ({
         </div>
 
         {/* Share Your Story Section */}
-        <div
-          id="share-testimonial"
-          className={cn(
-            "mt-16 text-center",
-            isVisible ? "animate-fadeIn" : "opacity-0"
-          )}
-          style={{
-            animationDelay: "0.7s",
-            animationFillMode: "forwards",
-          }}
-        >
+        <div id="share-testimonial" className={cn("mt-16 text-center")}>
           <h3 className="text-2xl font-bold mb-6">
             Share Your Manaslu Experience
           </h3>

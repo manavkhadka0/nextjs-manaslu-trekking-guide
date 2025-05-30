@@ -111,20 +111,15 @@ const Stats02Page = ({}: Stats02Props) => {
             <div
               key={index}
               className={cn(
-                "bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 shadow-lg relative overflow-hidden group hover:scale-105 transition-all duration-300",
-                isVisible ? "animate-fadeIn" : "opacity-0"
+                "bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 shadow-lg relative overflow-hidden group hover:scale-105 transition-all duration-300"
               )}
-              style={{
-                animationDelay: `${stat.delay}s`,
-                animationFillMode: "forwards",
-              }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               <div className="relative z-10">
                 <span
                   className={cn(
-                    "text-5xl md:text-6xl font-bold block bg-clip-text text-transparent bg-gradient-to-r",
+                    "text-2xl md:text-4xl font-bold block bg-clip-text text-transparent bg-gradient-to-r",
                     stat.color === "text-primary" && "from-primary to-blue-500",
                     stat.color === "text-blue-500" &&
                       "from-blue-500 to-cyan-500",
@@ -150,16 +145,7 @@ const Stats02Page = ({}: Stats02Props) => {
         </div>
 
         {/* CTA section */}
-        <div
-          className={cn(
-            "mt-16 text-center",
-            isVisible ? "animate-fadeIn" : "opacity-0"
-          )}
-          style={{
-            animationDelay: "1.1s",
-            animationFillMode: "forwards",
-          }}
-        >
+        <div className={cn("mt-16 text-center")}>
           <h3 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-500">
             Ready to Experience the Manaslu Circuit?
           </h3>

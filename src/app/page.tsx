@@ -8,7 +8,10 @@ import Stats02Page from "@/components/stats-02/stats-02";
 import Contact from "@/components/contact/Contact";
 import { getFeaturedFAQs } from "@/lib/api/faq";
 import { getFeaturedTestimonials } from "@/lib/sanity/queries/testimonialQueries";
-import { getFeaturedVideos } from "@/lib/sanity/queries/trekHighlightQueries";
+import {
+  getAllVideos,
+  getAllPhotoGalleries,
+} from "@/lib/sanity/queries/trekHighlightQueries";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,10 +25,13 @@ import {
   ShieldIcon,
   VideoIcon,
   XIcon,
+  CameraIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import TrekHighlightCard from "@/components/trek-highlights/TrekHighlightCard";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import TrekHighlightsGrid from "@/components/trek-highlights/TrekHighlightsGrid";
 
 export const metadata: Metadata = {
   title:
@@ -39,7 +45,8 @@ export default async function HomePage() {
   const posts = await getLatestPosts(4);
   const featuredFaqs = await getFeaturedFAQs(6);
   const featuredTestimonials = await getFeaturedTestimonials();
-  const featuredTrekHighlights = await getFeaturedVideos(3);
+  const trekVideos = await getAllVideos();
+  const photoGalleries = await getAllPhotoGalleries(6);
 
   return (
     <main className="overflow-hidden">
@@ -240,172 +247,56 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Video Highlights Section */}
-      <section id="videos" className="py-24 relative scroll-mt-20">
+      {/* Media Gallery Section (Tabbed) */}
+      <section id="media-content" className="py-10 relative scroll-mt-10">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16 max-w-3xl mx-auto">
-            <div className="inline-flex items-center justify-center px-4 py-1.5 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">
-              <VideoIcon className="h-4 w-4 mr-1.5" />
-              <span>Trek Highlights</span>
+          <Tabs defaultValue="videos" className="w-full">
+            <div className="flex justify-center mb-4">
+              <TabsList className="grid w-full max-w-md grid-cols-2">
+                <TabsTrigger
+                  id="videos"
+                  value="videos"
+                  className="flex items-center gap-2"
+                >
+                  <VideoIcon className="h-4 w-4" />
+                  <span>Trek Videos</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  id="photos"
+                  value="photos"
+                  className="flex items-center gap-2"
+                >
+                  <CameraIcon className="h-4 w-4" />
+                  <span>Trek Photos</span>
+                </TabsTrigger>
+              </TabsList>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">
-              Experience the <span className="text-primary">Journey</span>{" "}
-              Through My Lens
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Watch these videos to get a glimpse of the breathtaking
-              landscapes, cultural experiences, and adventures that await you on
-              the Manaslu Circuit Trek.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredTrekHighlights.length > 0 ? (
-              featuredTrekHighlights.map((highlight) => (
-                <TrekHighlightCard key={highlight._id} highlight={highlight} />
-              ))
-            ) : (
-              <>
-                {/* Fallback content if no highlights are available */}
-                <div className="bg-background/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg group">
-                  <div className="relative aspect-video">
-                    <Image
-                      src="/images/WhatsApp Image 2025-02-28 at 11.57.59.jpeg"
-                      alt="Manaslu Circuit Highlights"
-                      fill
-                      className="object-cover transition-transform group-hover:scale-105 duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <button className="h-16 w-16 rounded-full bg-primary/90 text-white flex items-center justify-center hover:bg-primary transition-colors">
-                            <PlayCircleIcon className="h-8 w-8" />
-                          </button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-4xl p-0 bg-black border-none">
-                          <div className="relative pt-[56.25%]">
-                            <iframe
-                              className="absolute top-0 left-0 w-full h-full"
-                              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                              title="Manaslu Circuit Trek Highlights"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                              allowFullScreen
-                            ></iframe>
-                            <button className="absolute top-2 right-2 h-8 w-8 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/80">
-                              <XIcon className="h-5 w-5" />
-                            </button>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="text-xl font-semibold mb-2">
-                      Manaslu Circuit Highlights
-                    </h3>
-                    <p className="text-muted-foreground">
-                      A breathtaking journey through diverse landscapes and
-                      cultures of the Manaslu region.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-background/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg group">
-                  <div className="relative aspect-video">
-                    <Image
-                      src="/images/WhatsApp Image 2025-02-28 at 11.57.58.jpeg"
-                      alt="Larkya La Pass Crossing"
-                      fill
-                      className="object-cover transition-transform group-hover:scale-105 duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <button className="h-16 w-16 rounded-full bg-primary/90 text-white flex items-center justify-center hover:bg-primary transition-colors">
-                            <PlayCircleIcon className="h-8 w-8" />
-                          </button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-4xl p-0 bg-black border-none">
-                          <div className="relative pt-[56.25%]">
-                            <iframe
-                              className="absolute top-0 left-0 w-full h-full"
-                              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                              title="Larkya La Pass Crossing"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                              allowFullScreen
-                            ></iframe>
-                            <button className="absolute top-2 right-2 h-8 w-8 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/80">
-                              <XIcon className="h-5 w-5" />
-                            </button>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="text-xl font-semibold mb-2">
-                      Larkya La Pass Crossing
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Experience the challenging yet rewarding crossing of the
-                      famous Larkya La Pass (5,160m).
-                    </p>
-                  </div>
-                </div>
-
-                <div className="bg-background/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg group">
-                  <div className="relative aspect-video">
-                    <Image
-                      src="/images/WhatsApp Image 2025-02-28 at 11.57.57 (1).jpeg"
-                      alt="Local Village Life"
-                      fill
-                      className="object-cover transition-transform group-hover:scale-105 duration-500"
-                    />
-                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <button className="h-16 w-16 rounded-full bg-primary/90 text-white flex items-center justify-center hover:bg-primary transition-colors">
-                            <PlayCircleIcon className="h-8 w-8" />
-                          </button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-4xl p-0 bg-black border-none">
-                          <div className="relative pt-[56.25%]">
-                            <iframe
-                              className="absolute top-0 left-0 w-full h-full"
-                              src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                              title="Local Village Life"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                              allowFullScreen
-                            ></iframe>
-                            <button className="absolute top-2 right-2 h-8 w-8 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/80">
-                              <XIcon className="h-5 w-5" />
-                            </button>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="text-xl font-semibold mb-2">
-                      Local Village Life
-                    </h3>
-                    <p className="text-muted-foreground">
-                      Immerse yourself in the authentic culture and traditions
-                      of remote Himalayan villages.
-                    </p>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-
-          <div className="mt-12 text-center">
-            <Button asChild size="lg" className="rounded-full">
-              <Link href="/media" className="flex items-center">
-                View All Videos <ArrowRightIcon className="ml-2 h-4 w-4" />
+            <TabsContent value="videos" className="mt-2">
+              <TrekHighlightsGrid
+                highlights={trekVideos}
+                title="Trek Highlight"
+                subtitle="Watch these videos to experience the beauty and adventure of the Manaslu Circuit Trek"
+                showType="videos"
+              />
+            </TabsContent>
+            <TabsContent value="photos" className="mt-2">
+              <TrekHighlightsGrid
+                highlights={photoGalleries}
+                title="Photo"
+                subtitle="A collection of stunning photographs from the Manaslu Circuit Trek, showcasing the breathtaking landscapes, vibrant culture, and unforgettable moments"
+                showType="photos"
+              />
+              <Link href="/media" passHref>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="rounded-full bg-primary text-white block mx-auto"
+                >
+                  View All
+                </Button>
               </Link>
-            </Button>
-          </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 

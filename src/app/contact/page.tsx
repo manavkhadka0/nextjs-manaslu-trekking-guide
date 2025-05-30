@@ -87,24 +87,6 @@ export default function ContactPage() {
           className="pt-0" // Remove top padding since we have the hero section
         />
       </section>
-
-      {/* Social Media Section */}
-      <section className="py-16 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
-
-        {/* <div className="container mx-auto px-6 relative">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Stay Connected</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Follow us on social media for stunning photos, trail updates, and
-              special offers on upcoming treks
-            </p>
-          </div>
-
-          <SocialCard />
-        </div> */}
-      </section>
     </main>
   );
 }

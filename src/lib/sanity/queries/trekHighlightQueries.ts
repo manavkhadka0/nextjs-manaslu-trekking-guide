@@ -121,9 +121,12 @@ export async function getTrekHighlightById(id: string): Promise<TrekHighlight> {
 }
 
 // Get all photo galleries
-export async function getAllPhotoGalleries(): Promise<TrekHighlight[]> {
+export async function getAllPhotoGalleries(
+  limit?: number
+): Promise<TrekHighlight[]> {
+  const range = typeof limit === "number" ? `[0...${limit}]` : "";
   return client.fetch(
-    `*[_type == "trekHighlight" && isPhotoGallery == true] | order(order asc) {
+    `*[_type == "trekHighlight" && isPhotoGallery == true] | order(order asc) ${range} {
       _id,
       title,
       description,
