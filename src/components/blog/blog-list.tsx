@@ -7,20 +7,7 @@ import PostCard from "@/components/sections/blog/post-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Pagination } from "@/components/ui/pagination";
-import {
-  Search as SearchIcon,
-  X as XIcon,
-  BookOpenIcon,
-  TagIcon,
-  FolderIcon,
-} from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
+import { Search as SearchIcon, X as XIcon, BookOpenIcon } from "lucide-react";
 
 interface BlogListProps {
   posts: PostList[];
@@ -108,9 +95,9 @@ export default function BlogList({
 
       <div className="flex flex-col md:flex-row gap-8">
         {/* Blog posts grid - Left Column */}
-        <div className="md:w-2/3">
+        <div className="w-full">
           {posts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {posts.map((post) => (
                 <PostCard key={post._id} post={post} />
               ))}
