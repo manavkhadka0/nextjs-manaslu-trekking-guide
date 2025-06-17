@@ -21,32 +21,20 @@ export interface SocialLink {
 export const SOCIAL_LINKS: SocialLink[] = [
   {
     name: "Facebook",
-    url: "https://facebook.com/manaslutrekkingguide",
+    url: "https://www.facebook.com/share/16kG1CFwtU/",
     icon: Facebook,
     username: "@manaslutrekkingguide",
   },
   {
     name: "Instagram",
-    url: "https://instagram.com/manaslu_trekking",
+    url: "https://www.instagram.com/manasluguide4545?igsh=MWc2OWZlc2k3NnZhYQ==",
     icon: Instagram,
     username: "@manaslu_trekking",
   },
   {
-    name: "Twitter",
-    url: "https://twitter.com/manaslu_trek",
-    icon: Twitter,
-    username: "@manaslu_trek",
-  },
-  {
     name: "YouTube",
-    url: "https://youtube.com/c/manaslutrekking",
+    url: "https://www.youtube.com/@Adventure1-s",
     icon: Youtube,
-    username: "Manaslu Trekking Guide",
-  },
-  {
-    name: "LinkedIn",
-    url: "https://linkedin.com/company/manaslu-trekking-guide",
-    icon: Linkedin,
     username: "Manaslu Trekking Guide",
   },
 ];

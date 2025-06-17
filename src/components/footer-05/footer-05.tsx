@@ -121,10 +121,21 @@ const Footer05Page = () => {
                 journey.
               </p>
               <div className="flex gap-3">
-                <SocialLink href="#" icon={FacebookIcon} label="Facebook" />
-                <SocialLink href="#" icon={TwitterIcon} label="Twitter" />
-                <SocialLink href="#" icon={InstagramIcon} label="Instagram" />
-                <SocialLink href="#" icon={YoutubeIcon} label="YouTube" />
+                <SocialLink
+                  href="https://www.facebook.com/share/16kG1CFwtU/"
+                  icon={FacebookIcon}
+                  label="Facebook"
+                />
+                <SocialLink
+                  href="https://www.instagram.com/manasluguide4545?igsh=MWc2OWZlc2k3NnZhYQ=="
+                  icon={InstagramIcon}
+                  label="Instagram"
+                />
+                <SocialLink
+                  href="https://www.youtube.com/@Adventure1-s"
+                  icon={YoutubeIcon}
+                  label="YouTube"
+                />
               </div>
             </div>
 
