@@ -25,7 +25,12 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Testimonial } from "@/lib/sanity/queries/testimonialQueries";
 import { urlFor, getVideoEmbedUrl } from "@/lib/sanity/client";
 
@@ -46,8 +51,14 @@ const Testimonial06 = ({
   const [videoCount, setVideoCount] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
 
+  const sortedTestimonials = [...testimonials].sort((a, b) => {
+    const aTime = new Date(a.submissionDate || 0).getTime();
+    const bTime = new Date(b.submissionDate || 0).getTime();
+    return bTime - aTime;
+  });
+
   // Filter testimonials by type
-  const textTestimonials = testimonials.filter(
+  const textTestimonials = sortedTestimonials.filter(
     (testimonial) => testimonial.testimonialType === "text"
   );
 
@@ -55,7 +66,7 @@ const Testimonial06 = ({
   const videoTestimonialsToShow =
     videoTestimonials.length > 0
       ? videoTestimonials
-      : testimonials.filter(
+      : sortedTestimonials.filter(
           (testimonial) => testimonial.testimonialType === "video"
         );
 
@@ -136,21 +147,22 @@ const Testimonial06 = ({
                   setApi={setApi}
                   className="w-full"
                   opts={{
-                    loop: true,
+                    align: "start",
+                    loop: textTestimonials.length > 3,
                   }}
                 >
-                  <CarouselContent className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <CarouselContent className="-ml-4">
                     {textTestimonials.length > 0 ? (
                       textTestimonials.map((testimonial) => (
                         <CarouselItem
                           key={testimonial._id}
-                          className="md:basis-1/2 lg:basis-1/3"
+                          className="pl-4 md:basis-1/2 lg:basis-1/3"
                         >
                           <TestimonialCard testimonial={testimonial} />
                         </CarouselItem>
                       ))
                     ) : (
-                      <CarouselItem className="md:basis-1/1 lg:basis-1/1">
+                      <CarouselItem className="pl-4 basis-full">
                         <div className="text-center py-12 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
                           <QuoteIcon className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
                           <h3 className="text-xl font-semibold mb-2">
@@ -258,7 +270,7 @@ const Testimonial06 = ({
           </div>
 
           {/* Featured Testimonial */}
-          {testimonials.length > 0 && (
+          {sortedTestimonials.length > 0 && (
             <div
               className={cn(
                 "mt-16 bg-gradient-to-br from-primary/5 to-blue-500/5 rounded-2xl p-10 border border-primary/10 relative overflow-hidden"
@@ -269,17 +281,17 @@ const Testimonial06 = ({
               <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center">
                 <div className="md:w-1/3 flex-shrink-0">
                   <div className="relative h-64 w-64 mx-auto rounded-2xl overflow-hidden shadow-xl ring-4 ring-white/10">
-                    {testimonials[0].image ? (
+                    {sortedTestimonials[0].image ? (
                       <Image
-                        src={urlFor(testimonials[0].image).url()}
-                        alt={testimonials[0].name}
+                        src={urlFor(sortedTestimonials[0].image).url()}
+                        alt={sortedTestimonials[0].name}
                         fill
                         className="object-cover"
                       />
                     ) : (
                       <div className="w-full h-full bg-primary/20 flex items-center justify-center">
                         <span className="text-6xl font-medium text-primary/60">
-                          {testimonials[0].name.charAt(0)}
+                          {sortedTestimonials[0].name.charAt(0)}
                         </span>
                       </div>
                     )}
@@ -290,22 +302,24 @@ const Testimonial06 = ({
                   <div className="text-4xl font-serif text-primary/80">
                     &quot;
                   </div>
-                  <p className="text-xl italic mb-6">{testimonials[0].quote}</p>
+                  <p className="text-xl italic mb-6">
+                    {sortedTestimonials[0].quote}
+                  </p>
                   <div className="flex items-center">
                     <div>
-                      <p className="font-semibold">{testimonials[0].name}</p>
+                      <p className="font-semibold">{sortedTestimonials[0].name}</p>
                       <div className="flex items-center text-sm text-muted-foreground gap-2">
-                        {testimonials[0].trekRoute && (
+                        {sortedTestimonials[0].trekRoute && (
                           <span className="flex items-center">
                             <CheckCircleIcon className="h-3.5 w-3.5 mr-1 text-primary" />
-                            {testimonials[0].trekRoute}
+                            {sortedTestimonials[0].trekRoute}
                           </span>
                         )}
-                        {testimonials[0].trekDate && (
+                        {sortedTestimonials[0].trekDate && (
                           <span className="flex items-center">
                             <CalendarIcon className="h-3.5 w-3.5 mr-1" />
                             {new Date(
-                              testimonials[0].trekDate
+                              sortedTestimonials[0].trekDate
                             ).toLocaleDateString("en-US", {
                               month: "long",
                               year: "numeric",
@@ -320,7 +334,7 @@ const Testimonial06 = ({
                           key={i}
                           className={cn(
                             "w-5 h-5",
-                            i < (testimonials[0].rating || 5)
+                            i < (sortedTestimonials[0].rating || 5)
                               ? "text-yellow-500 fill-yellow-500"
                               : "text-gray-300"
                           )}
@@ -415,21 +429,22 @@ const Testimonial06 = ({
                 setApi={setApi}
                 className="w-full"
                 opts={{
-                  loop: true,
+                  align: "start",
+                  loop: textTestimonials.length > 3,
                 }}
               >
-                <CarouselContent className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <CarouselContent className="-ml-4">
                   {textTestimonials.length > 0 ? (
                     textTestimonials.map((testimonial) => (
                       <CarouselItem
                         key={testimonial._id}
-                        className="md:basis-1/2 lg:basis-1/3"
+                        className="pl-4 md:basis-1/2 lg:basis-1/3"
                       >
                         <TestimonialCard testimonial={testimonial} />
                       </CarouselItem>
                     ))
                   ) : (
-                    <CarouselItem className="md:basis-1/1 lg:basis-1/1">
+                    <CarouselItem className="pl-4 basis-full">
                       <div className="text-center py-12 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
                         <QuoteIcon className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
                         <h3 className="text-xl font-semibold mb-2">
@@ -641,6 +656,9 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[600px]">
+              <DialogTitle className="sr-only">
+                Full testimonial from {testimonial.name}
+              </DialogTitle>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Avatar className="h-12 w-12 border-2 border-primary/20">
@@ -830,6 +848,9 @@ const VideoTestimonialCard = ({
             </div>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[800px] p-0 bg-black border-none">
+            <DialogTitle className="sr-only">
+              Video testimonial from {testimonial.name}
+            </DialogTitle>
             <div className="relative pt-[56.25%]">
               {videoUrl ? (
                 <iframe

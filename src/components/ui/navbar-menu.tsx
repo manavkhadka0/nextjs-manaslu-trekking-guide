@@ -1,10 +1,10 @@
-"use client";
+ "use client";
 import React from "react";
-import { motion } from "motion/react";
+import { motion, type Transition } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
 
-const transition = {
+const transition: Transition = {
   type: "spring",
   mass: 0.5,
   damping: 11.5,

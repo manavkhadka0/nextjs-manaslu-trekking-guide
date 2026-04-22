@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { client } from "@/sanity/client";
+import { getWriteClient } from "@/sanity/client";
 import { resend } from "../resend";
 import { TestimonialAdminEmail } from "../../emails/TestimonialAdminEmail";
 import { TestimonialThankYouEmail } from "../../emails/TestimonialThankYouEmail";
@@ -33,7 +33,7 @@ export async function submitTestimonial(data: TestimonialSubmission) {
     const validatedData = testimonialSubmissionSchema.parse(data);
 
     // Create the testimonial document in Sanity
-    const result = await client.create({
+    const result = await getWriteClient().create({
       _type: "testimonial",
       name: validatedData.name,
       quote: validatedData.quote,
@@ -48,20 +48,27 @@ export async function submitTestimonial(data: TestimonialSubmission) {
       submissionDate: validatedData.submissionDate,
     });
 
-    // Send email to admin
-    await resend.emails.send({
-      from: "Manaslu Trekking Guide <info@manaslutrekguide.com>",
-      to: ["adhikarisamrat4545@gmail.com"],
-      subject: `New Testimonial from ${validatedData.name}`,
-      react: TestimonialAdminEmail(validatedData),
-    });
+    // Email delivery should not block a successful testimonial submission.
+    const emailResults = await Promise.allSettled([
+      resend.emails.send({
+        from: "Manaslu Trekking Guide <info@manaslutrekguide.com>",
+        to: ["adhikarisamrat4545@gmail.com"],
+        subject: `New Testimonial from ${validatedData.name}`,
+        react: TestimonialAdminEmail(validatedData),
+      }),
+      resend.emails.send({
+        from: "Manaslu Trekking Guide <info@manaslutrekguide.com>",
+        to: [validatedData.email],
+        subject: "Thank you for your testimonial!",
+        react: TestimonialThankYouEmail(validatedData),
+      }),
+    ]);
 
-    // Send thank-you email to user
-    await resend.emails.send({
-      from: "Manaslu Trekking Guide <info@manaslutrekguide.com>",
-      to: [validatedData.email],
-      subject: "Thank you for your testimonial!",
-      react: TestimonialThankYouEmail(validatedData),
+    emailResults.forEach((result, index) => {
+      if (result.status === "rejected") {
+        const label = index === 0 ? "admin notification" : "thank-you";
+        console.error(`Failed to send ${label} email`, result.reason);
+      }
     });
 
     return { success: true, data: result };
@@ -73,6 +80,36 @@ export async function submitTestimonial(data: TestimonialSubmission) {
         details: error.errors,
       };
     }
+
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error occurred";
+
+    if (
+      errorMessage.includes("Insufficient permissions") ||
+      errorMessage.includes('permission "create" required')
+    ) {
+      const runtimeToken = process.env.SANITY_API_TOKEN ?? "";
+      console.error("Sanity create permission error", {
+        statusCode:
+          typeof error === "object" && error && "statusCode" in error
+            ? (error as { statusCode?: number }).statusCode
+            : undefined,
+        message: errorMessage,
+        projectId: "aiqpnnbw",
+        dataset: "production",
+        tokenFingerprint: runtimeToken
+          ? `${runtimeToken.slice(0, 8)}...${runtimeToken.slice(-6)} (len:${runtimeToken.length})`
+          : "missing",
+      });
+
+      return {
+        success: false,
+        error:
+          "Sanity token cannot create documents for the configured project or dataset. Verify token role and project access.",
+      };
+    }
+
+    console.error("submitTestimonial failed", error);
 
     return {
       success: false,
